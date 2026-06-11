@@ -14,40 +14,93 @@ export default function Pricing() {
   const router = useRouter()
   const plans = [
     {
-      id: 'STARTER',
-      name: 'Starter',
-      price: '₹99',
-      description: 'Perfect for getting started',
+      id: 'VITEEE',
+      name: 'VITEEE 2027',
+      price: '₹999',
+      description: '10 Full-Length Tests',
       features: [
-        '1 Exam Test Series',
-        'Basic Analytics',
-        '7 Days Access',
-        'Email Support',
+        '10 Full-Length Tests',
+        'Detailed Performance Analytics',
+        '30 Days Access',
+        'Question-wise Analysis',
+        'Rank Prediction',
+        'Doubt Clearing Support',
       ],
       popular: false,
-      color: 'from-primary/20 to-primary/5'
+      color: 'from-purple-500/20 to-purple-500/5'
     },
     {
-      id: 'PRO',
-      name: 'Pro',
-      price: '₹299',
-      description: 'Most popular choice',
+      id: 'MET',
+      name: 'MET (Manipal) 2027',
+      price: '₹999',
+      description: '10 Full-Length Tests',
       features: [
-        'All Exam Test Series',
-        'Advanced Analytics',
+        '10 Full-Length Tests',
+        'Detailed Performance Analytics',
         '30 Days Access',
+        'Question-wise Analysis',
+        'Rank Prediction',
+        'Doubt Clearing Support',
+      ],
+      popular: false,
+      color: 'from-blue-500/20 to-blue-500/5'
+    },
+    {
+      id: 'BITSAT',
+      name: 'BITSAT 2027',
+      price: '₹1299',
+      description: '12 Full-Length Tests',
+      features: [
+        '12 Full-Length Tests',
+        'Detailed Performance Analytics',
+        '45 Days Access',
+        'Question-wise Analysis',
+        'Rank Prediction',
+        'Doubt Clearing Support',
+        'Time Management Training',
+      ],
+      popular: false,
+      color: 'from-cyan-500/20 to-cyan-500/5'
+    },
+    {
+      id: 'AIEEE',
+      name: 'AIEEE 2027',
+      price: '₹999',
+      description: '10 Full-Length Tests',
+      features: [
+        '10 Full-Length Tests',
+        'Detailed Performance Analytics',
+        '30 Days Access',
+        'Question-wise Analysis',
+        'Rank Prediction',
+        'Doubt Clearing Support',
+      ],
+      popular: false,
+      color: 'from-green-500/20 to-green-500/5'
+    },
+    {
+      id: 'JEE_MAINS',
+      name: 'JEE Mains 2027',
+      price: '₹1999',
+      description: '15 Full-Length Tests',
+      features: [
+        '15 Full-Length Tests',
+        'Advanced Performance Analytics',
+        '60 Days Access',
+        'Question-wise Analysis',
+        'All India Rank Prediction',
         'Priority Support',
         'Performance Reports',
-        'Mock Interviews',
+        'Mock Interview Prep',
       ],
       popular: true,
       color: 'from-primary/40 to-primary/10'
     },
     {
-      id: 'ENTERPRISE',
-      name: 'Enterprise',
-      price: '₹999',
-      description: 'For serious aspirants',
+      id: 'NEET',
+      name: 'NEET-UG 2027',
+      price: '₹4999',
+      description: 'Unlimited Tests',
       features: [
         'Unlimited Test Series',
         'AI-Powered Analytics',
@@ -56,9 +109,10 @@ export default function Pricing() {
         'Doubt Clearing Sessions',
         'Personal Mentorship',
         'Career Guidance',
+        'Performance Tracking',
       ],
       popular: false,
-      color: 'from-foreground/20 to-foreground/5'
+      color: 'from-rose-500/20 to-rose-500/5'
     },
   ]
 
@@ -93,7 +147,7 @@ export default function Pricing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {plans.map((plan, index) => (
               <motion.div
                 key={plan.name}
