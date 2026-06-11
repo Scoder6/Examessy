@@ -188,23 +188,23 @@ export default function Pricing() {
             transition={{ duration: 0.6 }}
             className="mb-20 max-w-4xl mx-auto"
           >
-            <div className="relative rounded-3xl overflow-hidden border border-yellow-400/40 bg-gradient-to-br from-yellow-500/10 via-yellow-400/5 to-orange-500/10 p-1">
-              <div className="rounded-[20px] bg-gradient-to-br from-yellow-950/60 to-background p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 dark:border-yellow-400/40 bg-gradient-to-br from-amber-500/5 via-amber-400/5 to-orange-500/5 dark:from-yellow-500/10 dark:via-yellow-400/5 dark:to-orange-500/10 p-1">
+              <div className="rounded-[20px] bg-gradient-to-br from-amber-50 to-background dark:from-yellow-950/60 dark:to-background p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 {/* Left: Offer text */}
                 <div className="flex-1 text-center md:text-left space-y-3">
-                  <p className="text-xs font-black tracking-[0.3em] uppercase text-yellow-400/80">Limited Time Offer</p>
+                  <p className="text-xs font-black tracking-[0.3em] uppercase text-amber-600 dark:text-yellow-400/80">Limited Time Offer</p>
                   <h2 className="text-4xl md:text-5xl font-display font-black italic tracking-tighter leading-none">
                     All Discounted Prices<br />
-                    <span className="text-yellow-400">is just </span>
-                    <span className="text-6xl md:text-8xl text-yellow-400">₹99</span>
-                    <span className="text-yellow-400 text-4xl">/-</span>
+                    <span className="text-amber-600 dark:text-yellow-400">is just </span>
+                    <span className="text-6xl md:text-8xl text-amber-600 dark:text-yellow-400">₹99</span>
+                    <span className="text-amber-600 dark:text-yellow-400 text-4xl">/-</span>
                   </h2>
                   <p className="text-muted-foreground font-bold text-sm md:text-base">
                     Top Exams. One Price. — 3 Month Test Series access for every plan.
                   </p>
                   <Button
                     onClick={handleOfferGet}
-                    className="mt-2 h-14 px-10 rounded-2xl font-black uppercase tracking-widest bg-yellow-400 hover:bg-yellow-300 text-black shadow-[0_8px_32px_rgba(234,179,8,0.4)] hover:shadow-[0_8px_40px_rgba(234,179,8,0.6)] transition-all"
+                    className="mt-2 h-14 px-10 rounded-2xl font-black uppercase tracking-widest bg-amber-500 hover:bg-amber-400 dark:bg-yellow-400 dark:hover:bg-yellow-300 text-black shadow-[0_8px_32px_rgba(245,158,11,0.4)] dark:shadow-[0_8px_32px_rgba(234,179,8,0.4)] hover:shadow-[0_8px_40px_rgba(245,158,11,0.6)] dark:hover:shadow-[0_8px_40px_rgba(234,179,8,0.6)] transition-all"
                   >
                     GET THIS OFFER — ₹99
                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -213,7 +213,7 @@ export default function Pricing() {
 
                 {/* Right: Countdown */}
                 <div className="flex-shrink-0 text-center space-y-3">
-                  <div className="flex items-center gap-2 justify-center text-yellow-400/70 mb-1">
+                  <div className="flex items-center gap-2 justify-center text-amber-600/70 dark:text-yellow-400/70 mb-1">
                     <Clock className="w-4 h-4" />
                     <span className="text-xs font-black tracking-widest uppercase">Offer Ends In</span>
                   </div>
@@ -225,12 +225,12 @@ export default function Pricing() {
                       { val: pad(countdown.seconds), label: 'Secs' },
                     ].map(({ val, label }) => (
                       <div key={label} className="flex flex-col items-center gap-1">
-                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-yellow-400/10 border border-yellow-400/30 flex items-center justify-center">
-                          <span className="text-2xl md:text-3xl font-display font-black text-yellow-400 tabular-nums">
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-amber-100 dark:bg-yellow-400/10 border border-amber-300 dark:border-yellow-400/30 flex items-center justify-center">
+                          <span className="text-2xl md:text-3xl font-display font-black text-amber-700 dark:text-yellow-400 tabular-nums">
                             {val}
                           </span>
                         </div>
-                        <span className="text-[10px] font-black tracking-widest uppercase text-yellow-400/60">{label}</span>
+                        <span className="text-[10px] font-black tracking-widest uppercase text-amber-600/60 dark:text-yellow-400/60">{label}</span>
                       </div>
                     ))}
                   </div>
