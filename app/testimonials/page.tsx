@@ -7,6 +7,8 @@ import { Card, CardContent } from '@/components/card'
 import { Badge } from '@/components/badge'
 import { Star, Quote } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { TestimonialsBackground } from '@/components/3d/page-scenes'
+import { DramaticReveal, DramaticCard, HoverSpotlight, GlitchText, StaggerGrid, ScrollingText, WordReveal } from '@/components/dramatic/dramatic-effects'
 
 export default function Testimonials() {
   const testimonials = [
@@ -61,55 +63,76 @@ export default function Testimonials() {
   ]
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background relative overflow-hidden">
+      <TestimonialsBackground />
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[150px] animate-orb" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-secondary/10 rounded-full blur-[150px] animate-orb" style={{ animationDelay: '-10s' }} />
+      </div>
       <Header showAuth={true} />
       
-      <section className="py-20 md:py-32">
+      <section className="py-28 md:py-36">
         <Container>
-          <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4">Testimonials</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">What Our Students Say</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Join thousands of successful students who have achieved their dreams with Examessy
-            </p>
-          </div>
+          <DramaticReveal direction="up" className="text-center mb-16 space-y-4">
+            <Badge variant="glass" className="px-5 py-1.5 rounded-full border-primary/20 text-primary font-bold tracking-wider text-[10px] uppercase">
+              <Quote className="w-3.5 h-3.5 mr-1.5 inline" /> Success Stories
+            </Badge>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[0.88]">
+              What Our Students
+              <br />
+              <span className="text-primary">Say</span>
+            </h1>
+            <WordReveal
+              text="Join thousands of successful students who have achieved their dreams with Examessy"
+              className="text-lg text-muted-foreground/60 max-w-2xl mx-auto"
+            />
+          </DramaticReveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <ScrollingText
+            texts={['JEE Mains','NEET','VITEEE','CBT','AIR #3','AIR #7','99.9%ile','Top Rankers','Success Stories']}
+            speed={35}
+            className="mb-12 opacity-40"
+          />
+
+          <StaggerGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                  <CardContent className="pt-6">
-                    <Quote className="w-8 h-8 text-primary/30 mb-4" />
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {testimonial.content}
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+              <DramaticCard key={testimonial.name} className="rounded-3xl h-full" glowColor="rgba(var(--primary-rgb),0.3)">
+                <HoverSpotlight>
+                  <div className="h-full p-8 rounded-3xl border border-white/[0.05] bg-white/[0.01] space-y-6">
+                    <motion.div
+                      animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+                      transition={{ duration: 6, repeat: Infinity, delay: index * 0.5 }}
+                    >
+                      <Quote className="w-8 h-8 text-primary/40" />
+                    </motion.div>
+                    <p className="text-muted-foreground/80 leading-relaxed text-sm">{testimonial.content}</p>
+                    <div className="flex items-center gap-4 pt-2">
+                      <motion.div
+                        className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm shrink-0"
+                        whileHover={{ scale: 1.15, rotate: 5 }}
+                      >
                         {testimonial.image}
-                      </div>
+                      </motion.div>
                       <div>
-                        <h4 className="font-semibold">{testimonial.name}</h4>
-                        <p className="text-sm text-muted-foreground">{testimonial.exam}</p>
-                        <div className="flex items-center gap-1 mt-1">
+                        <h4 className="font-black font-display tracking-tight"><GlitchText text={testimonial.name} /></h4>
+                        <p className="text-xs text-muted-foreground/50">{testimonial.exam}</p>
+                        <div className="flex items-center gap-0.5 mt-1">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+                            <motion.div key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.1 * i + index * 0.05 }}>
+                              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            </motion.div>
                           ))}
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t">
-                      <p className="text-sm font-semibold text-primary">{testimonial.score}</p>
+                    <div className="pt-4 border-t border-white/[0.05]">
+                      <p className="text-sm font-black text-primary">{testimonial.score}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  </div>
+                </HoverSpotlight>
+              </DramaticCard>
             ))}
-          </div>
+          </StaggerGrid>
         </Container>
       </section>
 

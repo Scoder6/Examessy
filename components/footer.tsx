@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Mail, Heart, ArrowUp, MessageSquare, MapPin, Phone, ArrowUpRight, Sparkles, Zap, Globe, Users } from 'lucide-react'
 import { Instagram } from '@/components/icons/instagram'
+import { DramaticReveal, HoverSpotlight, GlitchText, ScrollingText, LiquidButton, PulseBorder } from '@/components/dramatic/dramatic-effects'
 
 export function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false)
@@ -58,8 +59,17 @@ export function Footer() {
 
   return (
     <footer className="relative pt-24 pb-28 md:pb-20 bg-background border-t border-white/[0.06] overflow-hidden">
-      {/* Subtle animated background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/[0.01] to-background" />
+      {/* animated footer bg */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/[0.01] to-background pointer-events-none" />
+      {/* scroll ticker */}
+      <div className="absolute top-0 left-0 right-0 overflow-hidden opacity-30">
+        <ScrollingText
+          texts={['Examessy','JEE Mains','NEET','VITEEE','CBT','50,000+ Students','99.9%+ Percentile','AIR #3','AIR #7','Contact Us']}
+          speed={60}
+          reverse
+          className="text-xs text-muted-foreground"
+        />
+      </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Unique asymmetric layout */}
@@ -84,7 +94,7 @@ export function Footer() {
                   </div>
                 </div>
                 <span className="text-3xl font-display font-black tracking-tight">
-                  EXAMES<span className="text-primary">SY</span>
+                  EXAMES<span className="text-primary neon-text"><GlitchText text="SY" /></span>
                 </span>
               </div>
             </Link>
@@ -112,17 +122,24 @@ export function Footer() {
               {socialLinks.map((social, i) => {
                 const Icon = social.icon
                 return (
-                  <motion.a
-                    key={i}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -3, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all"
-                  >
-                    <Icon className="w-4 h-4" />
-                  </motion.a>
+                  <PulseBorder key={i} className="rounded-xl" color="rgba(var(--primary-rgb),0.4)">
+                    <motion.a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -4, scale: 1.15 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 hover:bg-primary/10 transition-all relative overflow-hidden"
+                    >
+                      <Icon className="w-4 h-4 relative z-10" />
+                      <motion.div
+                        className="absolute inset-0 bg-primary/10 rounded-xl"
+                        initial={{ scale: 0, opacity: 0 }}
+                        whileHover={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                    </motion.a>
+                  </PulseBorder>
                 )
               })}
             </div>
@@ -230,20 +247,31 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Back to Top Button */}
+      {/* Back to Top */}
       <AnimatePresence>
         {showBackToTop && (
-          <motion.button
-            onClick={scrollToTop}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            whileHover={{ y: -3, scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="fixed bottom-24 md:bottom-8 right-6 z-40 w-12 h-12 rounded-xl bg-background/90 backdrop-blur-xl border border-white/[0.1] shadow-lg flex items-center justify-center"
+          <motion.div
+            className="fixed bottom-24 md:bottom-8 right-6 z-40"
+            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.8 }}
           >
-            <ArrowUp className="w-5 h-5 text-muted-foreground" />
-          </motion.button>
+            <PulseBorder className="rounded-2xl" color="rgba(var(--primary-rgb),0.6)">
+              <motion.button
+                onClick={scrollToTop}
+                whileHover={{ y: -4, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="w-12 h-12 rounded-2xl bg-background/95 backdrop-blur-xl border border-primary/20 shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center relative overflow-hidden group"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"
+                  animate={{ opacity: [0.3, 0.7, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                <ArrowUp className="w-5 h-5 text-primary relative z-10 group-hover:text-primary-foreground transition-colors" />
+              </motion.button>
+            </PulseBorder>
+          </motion.div>
         )}
       </AnimatePresence>
     </footer>

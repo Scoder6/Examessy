@@ -9,8 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/badge'
 import { Button } from '@/components/button'
 import { Footer } from '@/components/footer'
-import { LogOut, BarChart3, TrendingUp, Trophy, BookOpen, ArrowUpRight, Target, Clock, Zap, Calendar, ChevronRight, Activity, Filter, Download, Users } from 'lucide-react'
+import { BarChart3, TrendingUp, Trophy, BookOpen, ArrowUpRight, Target, Clock, Zap, Calendar, ChevronRight, Activity, Filter, Download, Users } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { DramaticReveal, DramaticCard, HoverSpotlight, GlitchText, MagneticButton, SparkButton, LiquidButton, StaggerGrid, ScrollingText, ExplosiveCounter, PulseBorder } from '@/components/dramatic/dramatic-effects'
+import { DashboardBackground } from '@/components/3d/page-scenes'
 
 interface StudentData {
   id: string
@@ -94,16 +96,16 @@ export default function Dashboard() {
   }
 
   const avgScore = testAttempts.length > 0
-    ? (testAttempts.reduce((sum, t) => sum + t.score, 0) / testAttempts.length).toFixed(2)
-    : '0'
+    ? Math.round(testAttempts.reduce((sum, t) => sum + t.score, 0) / testAttempts.length)
+    : 0
 
   const avgAccuracy = testAttempts.length > 0
-    ? (testAttempts.reduce((sum, t) => sum + t.accuracy, 0) / testAttempts.length).toFixed(1)
-    : '0'
+    ? Math.round(testAttempts.reduce((sum, t) => sum + t.accuracy, 0) / testAttempts.length)
+    : 0
 
   const bestRank = testAttempts.length > 0
     ? Math.min(...testAttempts.map(t => t.rank))
-    : 'N/A'
+    : 0
 
   if (loading) {
     return (
@@ -128,7 +130,7 @@ export default function Dashboard() {
         <Container className="py-20 text-center space-y-6">
           <Card variant="glass" className="max-w-md mx-auto p-12">
             <p className="text-destructive font-semibold mb-6">{error || 'Failed to load profile'}</p>
-            <Button variant="gradient" onClick={() => router.push('/')}>Back to Home</Button>
+            <Button variant="default" onClick={() => router.push('/')}>Back to Home</Button>
           </Card>
         </Container>
       </main>
@@ -143,14 +145,16 @@ export default function Dashboard() {
   }[student.exam_type] || student.exam_type
 
   const stats = [
-    { label: 'Total Tests', value: testAttempts.length, icon: BookOpen, color: 'text-blue-500' },
-    { label: 'Avg Score', value: avgScore, icon: TrendingUp, color: 'text-green-500' },
-    { label: 'Avg Accuracy', value: `${avgAccuracy}%`, icon: Activity, color: 'text-purple-500' },
-    { label: 'Best Rank', value: bestRank, icon: Trophy, color: 'text-yellow-500' },
+    { label: 'Total Tests', value: testAttempts.length, numericValue: testAttempts.length, icon: BookOpen, color: 'text-blue-500', suffix: '' },
+    { label: 'Avg Score', value: avgScore, numericValue: avgScore, icon: TrendingUp, color: 'text-green-500', suffix: '' },
+    { label: 'Avg Accuracy', value: avgAccuracy, numericValue: avgAccuracy, icon: Activity, color: 'text-purple-500', suffix: '%' },
+    { label: 'Best Rank', value: bestRank, numericValue: bestRank, icon: Trophy, color: 'text-yellow-500', suffix: '' },
   ]
 
   return (
     <main className="min-h-screen bg-background selection:bg-primary/30 relative overflow-hidden">
+      <DashboardBackground />
+
       {/* Global Moving Background for Consistency */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-grid-white opacity-[0.02] animate-grid-move" />
@@ -163,6 +167,13 @@ export default function Dashboard() {
       <Header showAuth={true} isAuthenticated={true} onSignOut={handleLogout} />
 
       <Container size="2xl" className="py-32">
+
+        <ScrollingText
+          texts={['JEE MAINS', 'NEET', 'VITEEE', 'BITSSAT', 'COMEDK', 'MHT-CET', 'KCET', 'JEE ADVANCED']}
+          speed={45}
+          className="opacity-30 mb-16"
+        />
+
         {/* Dashboard Header - Massive Style */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
           <motion.div 
@@ -185,7 +196,9 @@ export default function Dashboard() {
             
             <h1 className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase italic leading-[0.85]">
               Welcome back, <br />
-              <span className="text-gradient">{student.name.split(' ')[0]}</span>
+              <span className="text-gradient">
+                <GlitchText text={student.name.split(' ')[0]} />
+              </span>
             </h1>
             
             <div className="flex items-center gap-6 pt-2">
@@ -206,43 +219,58 @@ export default function Dashboard() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-wrap gap-4"
           >
-            <Button variant="outline" size="xl" className="rounded-2xl border-2 font-black tracking-widest uppercase h-20 px-8 bg-white/5">
-              <Download className="w-5 h-5 mr-3" /> Intel Export
-            </Button>
-            <Button variant="default" size="xl" className="rounded-2xl font-black tracking-widest uppercase h-20 px-12 shadow-2xl shadow-primary/30 group">
-              INITIATE TEST <ArrowUpRight className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </Button>
+            <MagneticButton>
+              <SparkButton>
+                <LiquidButton
+                  className="rounded-2xl border-2 border-white/20 font-black tracking-widest uppercase h-20 px-8 bg-white/5 text-foreground"
+                >
+                  <Download className="w-5 h-5 mr-3 inline" /> Intel Export
+                </LiquidButton>
+              </SparkButton>
+            </MagneticButton>
+            <MagneticButton>
+              <SparkButton>
+                <LiquidButton
+                  className="rounded-2xl font-black tracking-widest uppercase h-20 px-12 shadow-2xl shadow-primary/30 bg-primary text-primary-foreground"
+                >
+                  INITIATE TEST <ArrowUpRight className="w-6 h-6 ml-3 inline" />
+                </LiquidButton>
+              </SparkButton>
+            </MagneticButton>
           </motion.div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-            >
+            <DramaticCard key={stat.label} glowColor="rgba(var(--primary-rgb),0.4)">
               <Card variant="glass" className="group hover:border-primary/30 transition-all duration-500">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`p-2 rounded-xl glass ${stat.color} bg-white/5`}>
-                      <stat.icon className="w-5 h-5" />
+                <HoverSpotlight>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`p-2 rounded-xl glass ${stat.color} bg-white/5`}>
+                        <stat.icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-widest">
+                        Live
+                      </span>
                     </div>
-                    <span className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-widest">
-                      Live
-                    </span>
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium text-muted-foreground font-modern">{stat.label}</h3>
-                    <p className="text-3xl font-display font-bold tracking-tight">{stat.value}</p>
-                  </div>
-                </CardContent>
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-medium text-muted-foreground font-modern">{stat.label}</h3>
+                      <p className="text-3xl font-display font-bold tracking-tight">
+                        {stat.numericValue > 0 ? (
+                          <ExplosiveCounter from={0} to={stat.numericValue} suffix={stat.suffix} duration={1.8} />
+                        ) : (
+                          <span>N/A</span>
+                        )}
+                      </p>
+                    </div>
+                  </CardContent>
+                </HoverSpotlight>
               </Card>
-            </motion.div>
+            </DramaticCard>
           ))}
-        </div>
+        </StaggerGrid>
 
         {/* Main Content Area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -284,6 +312,7 @@ export default function Dashboard() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               transition={{ delay: i * 0.05 }}
+                              whileHover={{ x: 3 }}
                               className="group hover:bg-white/[0.02] transition-colors"
                             >
                               <td className="px-6 py-4">
@@ -337,33 +366,41 @@ export default function Dashboard() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <Card variant="gradient" className="p-8 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-primary">
-                    <Target className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-xl">Target Score</h3>
-                    <p className="text-sm text-muted-foreground">Your current goal for {examName}</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-end">
-                    <span className="text-4xl font-display font-bold">{student.target_score || 'N/A'}</span>
-                    <span className="text-sm font-mono text-primary">+15% vs last week</span>
-                  </div>
-                  <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: '65%' }}
-                      className="h-full bg-gradient-to-r from-primary via-secondary to-accent"
-                    />
-                  </div>
-                </div>
-                <Button fullWidth variant="glass" className="rounded-xl border-white/10">
-                  Update Goal
-                </Button>
-              </Card>
+              <DramaticCard glowColor="rgba(var(--primary-rgb),0.5)">
+                <PulseBorder>
+                  <Card variant="glass" className="p-8 space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-primary">
+                        <Target className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-bold text-xl">Target Score</h3>
+                        <p className="text-sm text-muted-foreground">Your current goal for {examName}</p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-end">
+                        <span className="text-4xl font-display font-bold">
+                          {student.target_score ? (
+                            <ExplosiveCounter from={0} to={student.target_score} duration={2} />
+                          ) : 'N/A'}
+                        </span>
+                        <span className="text-sm font-mono text-primary">+15% vs last week</span>
+                      </div>
+                      <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: '65%' }}
+                          className="h-full bg-gradient-to-r from-primary via-secondary to-accent"
+                        />
+                      </div>
+                    </div>
+                    <LiquidButton className="w-full rounded-xl border border-white/10 bg-white/5 h-12 font-semibold text-sm">
+                      Update Goal
+                    </LiquidButton>
+                  </Card>
+                </PulseBorder>
+              </DramaticCard>
             </motion.div>
 
             <motion.div
@@ -381,16 +418,16 @@ export default function Dashboard() {
                     { label: 'Review Mistakes', icon: Clock },
                     { label: 'Compare with Peers', icon: Users },
                   ].map((action, i) => (
-                    <button 
+                    <LiquidButton
                       key={i}
-                      className="w-full flex items-center justify-between p-4 rounded-xl glass hover:bg-white/5 transition-all group"
+                      className="w-full flex items-center justify-between p-4 rounded-xl glass hover:bg-white/5 transition-all group text-left"
                     >
                       <div className="flex items-center gap-3">
                         <action.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                         <span className="text-sm font-medium">{action.label}</span>
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-1" />
-                    </button>
+                    </LiquidButton>
                   ))}
                 </div>
               </Card>

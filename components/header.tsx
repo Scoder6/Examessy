@@ -1,19 +1,22 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { Button } from './button'
 import { Container } from './container'
 import { ThemeToggle } from './theme-toggle'
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { Menu, X, ArrowRight, Zap, ChevronDown, Users, Sparkles } from 'lucide-react'
+import { Menu, X, ArrowRight, ChevronDown, Users, Sparkles } from 'lucide-react'
 import { JEEIcon } from '@/components/icons/jee-icon'
 import { NEETIcon } from '@/components/icons/neet-icon'
 import { VITIcon } from '@/components/icons/vit-icon'
 import { CBTIcon } from '@/components/icons/cbt-icon'
+import { SparkButton, LiquidButton, MagneticButton } from '@/components/dramatic/dramatic-effects'
+import { usePageTransition } from '@/components/transitions/wormhole-transition'
+import { DramaticTrophy } from '@/components/icons/dramatic-icons'
 
 export interface NavItem {
   label: string
@@ -45,14 +48,12 @@ const megaMenuContent = {
   },
   Results: {
     items: [
-      { label: 'Top Rankers', href: '/#results', icon: Trophy, desc: 'Our 99.9% percentilers' },
+      { label: 'Top Rankers', href: '/#results', icon: DramaticTrophy, desc: 'Our 99.9% percentilers' },
       { label: 'Testimonials', href: '/testimonials', icon: Users, desc: 'Student success stories' },
       { label: 'Success Rate', href: '/#stats', icon: Sparkles, desc: 'Proven track record' },
     ],
   },
 }
-
-function Trophy({ className }: { className?: string }) { return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>}
 
 export function Header({
   navItems = [],
@@ -60,7 +61,8 @@ export function Header({
   onSignOut,
   isAuthenticated = false,
 }: HeaderProps) {
-  const router = useRouter()
+  const { navigateTo } = usePageTransition()
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [activeMega, setActiveMega] = useState<string | null>(null)
@@ -68,7 +70,7 @@ export function Header({
   const { scrollY } = useScroll()
   const lastScroll = useRef(0)
   const headerRef = useRef<HTMLElement>(null)
-  const megaTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const megaTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const previous = lastScroll.current
@@ -84,7 +86,7 @@ export function Header({
 
   useEffect(() => {
     setIsOpen(false)
-  }, [router])
+  }, [pathname])
 
   const displayNavItems = navItems.length > 0 ? navItems : defaultNavItems
 
@@ -116,7 +118,7 @@ export function Header({
       <div className="w-full border-b border-white/[0.03]">
         <Container size="2xl">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-4 group relative">
+            <Link href="/" className="flex items-center gap-4 group relative" onClick={e => { e.preventDefault(); navigateTo('/') }}>
               <motion.div
                 className="relative w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden"
                 whileHover={{ scale: 1.05 }}
@@ -160,6 +162,7 @@ export function Header({
                   >
                     <Link
                       href={item.href}
+                      onClick={e => { if (!item.href.startsWith('#')) { e.preventDefault(); navigateTo(item.href) } }}
                       className={`px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all duration-300 flex items-center gap-1.5 group ${
                         activeMega === item.label
                           ? 'text-primary bg-primary/10'
@@ -189,6 +192,7 @@ export function Header({
                             <Link
                               key={i}
                               href={sub.href}
+                              onClick={e => { if (!sub.href.startsWith('#')) { e.preventDefault(); navigateTo(sub.href) } }}
                               className="flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-primary/10 transition-all duration-200 group/item"
                             >
                               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover/item:bg-primary group-hover/item:text-white transition-all duration-300">
@@ -219,21 +223,24 @@ export function Header({
                       </Button>
                     ) : (
                       <>
-                        <Link href="/auth/login">
+                        <Link href="/auth/login" onClick={e => { e.preventDefault(); navigateTo('/auth/login') }}>
                           <Button variant="ghost" size="sm" className="font-bold text-xs tracking-wider">
                             LOG IN
                           </Button>
                         </Link>
-                        <Link href="/auth/sign-up">
-                          <motion.button
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="relative px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs tracking-widest shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors overflow-hidden"
-                          >
-                            <span className="relative z-10 flex items-center gap-2">
-                              ENLIST <ArrowRight className="w-3.5 h-3.5" />
-                            </span>
-                          </motion.button>
+                        <Link href="/auth/sign-up" onClick={e => { e.preventDefault(); navigateTo('/auth/sign-up') }}>
+                          <MagneticButton strength={0.25}>
+                            <SparkButton>
+                              <LiquidButton
+                                onClick={() => {}}
+                                className="relative px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs tracking-widest shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors overflow-hidden gradient-border"
+                              >
+                                <span className="relative z-10 flex items-center gap-2">
+                                  ENLIST <ArrowRight className="w-3.5 h-3.5" />
+                                </span>
+                              </LiquidButton>
+                            </SparkButton>
+                          </MagneticButton>
                         </Link>
                       </>
                     )}
@@ -283,7 +290,7 @@ export function Header({
                   >
                     <Link
                       href={item.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => { setIsOpen(false); if (!item.href.startsWith('#')) navigateTo(item.href) }}
                       className="flex items-center justify-between px-6 py-5 rounded-2xl hover:bg-primary/[0.04] transition-all group"
                     >
                       <span className="text-2xl md:text-3xl font-display font-black tracking-tight text-foreground">

@@ -4,6 +4,9 @@ import { Geist, Geist_Mono, Inter, Playfair_Display, Space_Grotesk, Plus_Jakarta
 import './globals.css'
 import { ThemeProvider } from './providers'
 import { GlobalEffects } from '@/components/animations/global-effects'
+import { CursorTrail } from '@/components/transitions/cursor-trail'
+import { DramaticGlobalEffects } from '@/components/dramatic/dramatic-global'
+import { SuppressKnownWarnings } from '@/components/animations/suppress-warnings'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({
@@ -63,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${plusJakarta.variable} ${outfit.variable} ${jetbrainsMono.variable} light`} suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${plusJakarta.variable} ${outfit.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -83,6 +86,9 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         <GlobalEffects />
+        <CursorTrail />
+        <DramaticGlobalEffects />
+        <SuppressKnownWarnings />
         <ThemeProvider>
           {children}
         </ThemeProvider>

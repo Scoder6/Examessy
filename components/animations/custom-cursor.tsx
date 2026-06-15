@@ -18,8 +18,8 @@ export function CustomCursor() {
   const handleMouseMove = useCallback((e: MouseEvent) => {
     cursorX.set(e.clientX)
     cursorY.set(e.clientY)
-    if (!isVisible) setIsVisible(true)
-  }, [cursorX, cursorY, isVisible])
+    setIsVisible(true)
+  }, [cursorX, cursorY])
 
   const handleMouseLeave = useCallback(() => {
     setIsVisible(false)
@@ -43,32 +43,26 @@ export function CustomCursor() {
     document.addEventListener('mouseleave', handleMouseLeave)
     window.addEventListener('click', handleClick)
 
-    const hoverTargets = document.querySelectorAll('a, button, [data-cursor-hover]')
     const addHover = () => setIsHovering(true)
     const removeHover = () => setIsHovering(false)
-    hoverTargets.forEach((el) => {
-      el.addEventListener('mouseenter', addHover)
-      el.addEventListener('mouseleave', removeHover)
-    })
 
-    const observer = new MutationObserver(() => {
+    const attachHover = () => {
       document.querySelectorAll('a, button, [data-cursor-hover]').forEach((el) => {
         el.removeEventListener('mouseenter', addHover)
         el.removeEventListener('mouseleave', removeHover)
         el.addEventListener('mouseenter', addHover)
         el.addEventListener('mouseleave', removeHover)
       })
-    })
+    }
+    attachHover()
+
+    const observer = new MutationObserver(attachHover)
     observer.observe(document.body, { childList: true, subtree: true })
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleMouseLeave)
       window.removeEventListener('click', handleClick)
-      hoverTargets.forEach((el) => {
-        el.removeEventListener('mouseenter', addHover)
-        el.removeEventListener('mouseleave', removeHover)
-      })
       observer.disconnect()
     }
   }, [handleMouseMove, handleMouseLeave, handleClick])
@@ -77,23 +71,26 @@ export function CustomCursor() {
 
   return (
     <>
+      {/* Dot — use inline style for background, never animate backgroundColor */}
       <motion.div
-        className="fixed pointer-events-none z-[9999]"
+        className="fixed pointer-events-none z-[9999] rounded-full"
         style={{
           x: cursorX,
           y: cursorY,
           translateX: '-50%',
           translateY: '-50%',
+          /* Static CSS custom property — not animated, so no framer warning */
+          backgroundColor: 'var(--foreground)',
         }}
         animate={{
           width: isHovering ? 10 : 6,
           height: isHovering ? 10 : 6,
-          backgroundColor: 'currentColor',
           opacity: isVisible ? 1 : 0,
         }}
         transition={{ duration: 0.15 }}
       />
 
+      {/* Ring follower */}
       <motion.div
         className="fixed pointer-events-none z-[9998] border border-foreground/30 rounded-full"
         style={{
@@ -111,6 +108,7 @@ export function CustomCursor() {
         transition={{ duration: 0.2 }}
       />
 
+      {/* Click ripples */}
       {clickRipples.map((ripple) => (
         <motion.div
           key={ripple.id}
