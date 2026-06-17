@@ -3,10 +3,6 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Inter, Playfair_Display, Space_Grotesk, Plus_Jakarta_Sans, Outfit, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from './providers'
-import { GlobalEffects } from '@/components/animations/global-effects'
-import { CursorTrail } from '@/components/transitions/cursor-trail'
-import { DramaticGlobalEffects } from '@/components/dramatic/dramatic-global'
-import { SuppressKnownWarnings } from '@/components/animations/suppress-warnings'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({
@@ -52,7 +48,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'Examessy - Online Test Series',
-  description: 'Comprehensive test series and analytics for JEE, NEET, VIT & CBT exams',
+  description: 'Comprehensive test series and analytics for JEE, NEET, VIT, BITSAT & Manipal exams',
   generator: 'v0.app',
   icons: {
     icon: '/logo.png',
@@ -85,10 +81,6 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <GlobalEffects />
-        <CursorTrail />
-        <DramaticGlobalEffects />
-        <SuppressKnownWarnings />
         <ThemeProvider>
           {children}
         </ThemeProvider>

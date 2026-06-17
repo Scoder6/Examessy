@@ -5,7 +5,9 @@ import { Footer } from '@/components/footer'
 import { Container } from '@/components/container'
 import { motion } from 'framer-motion'
 import { FileText, ArrowRight } from 'lucide-react'
-import { DramaticReveal, DramaticCard, HoverSpotlight, GlitchText, MagneticButton, SparkButton, LiquidButton, StaggerGrid, ScrollingText, WordReveal, PulseBorder } from '@/components/dramatic/dramatic-effects'
+import { Card, CardContent } from '@/components/card'
+import { Badge } from '@/components/badge'
+import { Button } from '@/components/button'
 
 const termsSections = [
   {
@@ -60,102 +62,75 @@ const termsSections = [
 
 export default function Terms() {
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/30">
-      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white opacity-[0.02] animate-grid-move" />
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[150px] animate-orb" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 rounded-full blur-[150px] animate-orb" style={{ animationDelay: '-10s' }} />
-      </div>
-
+    <main className="min-h-screen bg-background selection:bg-primary/30">
       <Header showAuth={true} />
 
       <Container className="py-28 md:py-36">
         <div className="max-w-4xl mx-auto">
 
           {/* Hero */}
-          <DramaticReveal direction="scale" className="text-center mb-16 space-y-6">
+          <div className="text-center mb-16 space-y-6">
             <motion.div
-              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-secondary to-accent mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(var(--secondary-rgb),0.35)]"
-              animate={{ rotate: [0, -5, 5, 0], scale: [1, 1.06, 1] }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-secondary to-accent mx-auto flex items-center justify-center shadow-lg"
             >
               <FileText className="w-10 h-10 text-white" />
             </motion.div>
-            <h1 className="text-5xl md:text-7xl font-display font-black tracking-tighter leading-none">
+            <h1 className="text-5xl md:text-7xl font-display font-semibold tracking-tighter leading-none">
               <span className="text-secondary">Terms of Service</span>
             </h1>
-            <WordReveal
-              text="Please read these terms carefully before using our platform. By continuing, you agree to be bound by them."
-              className="text-xl text-muted-foreground max-w-2xl mx-auto"
-            />
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Please read these terms carefully before using our platform. By continuing, you agree to be bound by them.
+            </p>
             <p className="text-sm text-muted-foreground/50 font-mono">Last updated: June 2026</p>
-          </DramaticReveal>
-
-          <ScrollingText
-            texts={['TERMS OF SERVICE','LEGAL AGREEMENT','USER CONDUCT','PAYMENT TERMS','INTELLECTUAL PROPERTY','DATA RIGHTS','FAIR USE']}
-            speed={42}
-            className="opacity-40 mb-12"
-          />
+          </div>
 
           {/* Sections */}
-          <StaggerGrid className="space-y-4">
+          <div className="space-y-4">
             {termsSections.map((section) => (
-              <DramaticCard
+              <Card
                 key={section.num}
-                className="rounded-2xl"
-                glowColor={section.color + '33'}
+                className="rounded-2xl border border-white/5 bg-white/[0.01]"
               >
-                <HoverSpotlight>
-                  <div className="p-7 rounded-2xl border border-white/[0.05] bg-white/[0.01]">
-                    <div className="flex items-start gap-5">
-                      <motion.div
-                        className="w-12 h-10 rounded-xl flex items-center justify-center shrink-0 font-black font-mono text-sm"
-                        style={{ background: section.color + '15', color: section.color }}
-                        whileHover={{ scale: 1.1 }}
-                        animate={{ opacity: [0.7, 1, 0.7] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: parseInt(section.num) * 0.2 }}
-                      >
-                        {section.num}
-                      </motion.div>
-                      <div>
-                        <h3 className="font-black font-display text-lg tracking-tight mb-2" style={{ color: section.color }}>
-                          <GlitchText text={section.title} />
-                        </h3>
-                        <p className="text-muted-foreground/80 leading-relaxed text-sm">{section.content}</p>
-                      </div>
+                <CardContent className="p-7">
+                  <div className="flex items-start gap-5">
+                    <motion.div
+                      className="w-12 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold font-mono text-sm"
+                      style={{ background: section.color + '15', color: section.color }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      {section.num}
+                    </motion.div>
+                    <div>
+                      <h3 className="font-semibold font-display text-lg tracking-tight mb-2" style={{ color: section.color }}>
+                        {section.title}
+                      </h3>
+                      <p className="text-muted-foreground/80 leading-relaxed text-sm">{section.content}</p>
                     </div>
                   </div>
-                </HoverSpotlight>
-              </DramaticCard>
+                </CardContent>
+              </Card>
             ))}
-          </StaggerGrid>
+          </div>
 
           {/* Contact CTA */}
-          <DramaticReveal direction="up" className="mt-12">
-            <PulseBorder className="rounded-[28px]" color="rgba(var(--secondary-rgb),0.4)">
-              <DramaticCard className="rounded-[28px]" glowColor="rgba(var(--secondary-rgb),0.35)">
-                <div className="p-10 rounded-[28px] border border-white/[0.05] bg-gradient-to-br from-secondary/[0.04] to-accent/[0.03] text-center space-y-5">
-                  <h3 className="text-2xl md:text-3xl font-display font-black tracking-tight">
-                    Questions about <span className="text-secondary">these terms?</span>
-                  </h3>
-                  <WordReveal
-                    text="Our team is happy to clarify anything. Reach out and we'll respond within 24 hours."
-                    className="text-muted-foreground/70 max-w-md mx-auto"
-                  />
-                  <MagneticButton>
-                    <SparkButton>
-                      <LiquidButton
-                        onClick={() => window.location.href = '/contact'}
-                        className="px-10 py-4 rounded-2xl font-black text-base tracking-wide bg-secondary text-secondary-foreground shadow-[0_8px_30px_rgba(var(--secondary-rgb),0.35)] gradient-border"
-                      >
-                        Contact Support <ArrowRight className="w-4 h-4 inline ml-2" />
-                      </LiquidButton>
-                    </SparkButton>
-                  </MagneticButton>
-                </div>
-              </DramaticCard>
-            </PulseBorder>
-          </DramaticReveal>
+          <div className="mt-12">
+            <Card className="rounded-3xl border border-white/5 bg-gradient-to-br from-secondary/[0.04] to-accent/[0.03]">
+              <CardContent className="p-10 text-center space-y-5">
+                <h3 className="text-2xl md:text-3xl font-display font-semibold tracking-tight">
+                  Questions about <span className="text-secondary">these terms?</span>
+                </h3>
+                <p className="text-muted-foreground/70 max-w-md mx-auto">
+                  Our team is happy to clarify anything. Reach out and we'll respond within 24 hours.
+                </p>
+                <Button
+                  onClick={() => window.location.href = '/contact'}
+                  className="px-10 py-4 rounded-2xl font-semibold text-base tracking-wide bg-secondary text-secondary-foreground shadow-lg hover:shadow-xl transition-all"
+                >
+                  Contact Support <ArrowRight className="w-4 h-4 inline ml-2" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
 
         </div>
       </Container>

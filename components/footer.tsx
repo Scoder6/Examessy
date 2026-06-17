@@ -58,7 +58,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="relative pt-24 pb-28 md:pb-20 bg-background border-t border-white/[0.06] overflow-hidden">
+    <footer className="relative pt-24 pb-28 md:pb-20 bg-background border-t border-border-subtle overflow-hidden">
       {/* animated footer bg */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/[0.01] to-background pointer-events-none" />
       {/* scroll ticker */}
@@ -111,10 +111,6 @@ export function Footer() {
               <div className="flex items-center gap-3 text-sm text-muted-foreground/60">
                 <MapPin className="w-4 h-4" />
                 <span>50+ Centers Across India</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground/60">
-                <Phone className="w-4 h-4" />
-                <span>+91 1800-XXX-XXXX</span>
               </div>
             </div>
 

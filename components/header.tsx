@@ -113,9 +113,9 @@ export function Header({
       ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         hidden ? '-translate-y-[110%]' : 'translate-y-0'
-      } ${scrolled ? 'bg-background/85 backdrop-blur-2xl shadow-[0_1px_0_rgba(255,255,255,0.05)]' : 'bg-transparent'}`}
+      } ${scrolled ? 'bg-background/85 backdrop-blur-2xl shadow-[0_1px_0_var(--border-subtle)]' : 'bg-transparent'}`}
     >
-      <div className="w-full border-b border-white/[0.03]">
+      <div className="w-full border-b border-border-subtle">
         <Container size="2xl">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-4 group relative" onClick={e => { e.preventDefault(); navigateTo('/') }}>

@@ -9,10 +9,6 @@ import { Badge } from '@/components/badge'
 import { Calendar, Clock, ArrowRight, ArrowLeft, Share2, Bookmark } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/button'
-import { MouseSpotlight } from '@/components/mouse-spotlight'
-import { ScrollProgress } from '@/components/scroll-progress'
-import { DramaticReveal, DramaticCard, HoverSpotlight, GlitchText, MagneticButton, SparkButton, LiquidButton, StaggerGrid, ScrollingText, WordReveal } from '@/components/dramatic/dramatic-effects'
-import { BlogBackground } from '@/components/3d/page-scenes'
 
 export default function Blog() {
   const [selectedPost, setSelectedExam] = useState<any>(null)
@@ -92,18 +88,7 @@ export default function Blog() {
   ]
 
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/30">
-      <MouseSpotlight />
-      <ScrollProgress />
-      <BlogBackground />
-      
-      {/* 2026 Background Engine */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-grid-white opacity-[0.02] animate-grid-move" />
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[150px] animate-orb" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 rounded-full blur-[150px] animate-orb" style={{ animationDelay: '-10s' }} />
-      </div>
-
+    <main className="min-h-screen bg-background selection:bg-primary/30">
       <Header showAuth={true} />
 
       <Container size="2xl" className="pt-48 pb-24 relative">
@@ -117,73 +102,59 @@ export default function Blog() {
               className="space-y-24"
             >
               <div className="flex flex-col items-center text-center space-y-8">
-                <Badge variant="glass" className="px-6 py-2 rounded-full border-primary/20 text-primary font-black tracking-widest uppercase italic">
+                <Badge variant="secondary" className="px-4 py-2 rounded-full text-sm font-semibold">
                   Intel Archive
                 </Badge>
-                <DramaticReveal direction="up">
-                  <h1 className="text-7xl md:text-9xl font-display font-black tracking-tighter uppercase italic leading-[0.85] pb-4">
-                    Tactical <br />
-                    <span className="text-gradient pr-4">
-                      Insights
-                    </span>
-                  </h1>
-                </DramaticReveal>
-                <WordReveal
-                  text="Deep-dive strategies and field intel from the Examessy engineering and academic team."
-                  className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-clean font-medium opacity-80"
-                />
+                <h1 className="text-6xl md:text-8xl font-display font-semibold tracking-tighter uppercase leading-tight pb-4">
+                  Tactical <br />
+                  <span className="text-gradient pr-4">
+                    Insights
+                  </span>
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-medium opacity-80">
+                  Deep-dive strategies and field intel from the Examessy engineering and academic team.
+                </p>
               </div>
 
-              <ScrollingText
-                texts={['JEE MAINS', 'NEET', 'VITEEE', 'STUDY TIPS', 'EXAM STRATEGY', 'TIME MANAGEMENT', 'MOCK TESTS', 'ANALYTICS']}
-                speed={40}
-                className="opacity-40 my-8"
-              />
-
-              <StaggerGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {posts.map((post) => (
-                  <DramaticCard key={post.id} glowColor="rgba(var(--primary-rgb),0.4)">
-                    <Card 
-                      variant="glass" 
-                      className="h-full group hover:border-primary/30 transition-all duration-700 overflow-hidden cursor-pointer"
-                      onClick={() => setSelectedExam(post)}
-                    >
-                      <HoverSpotlight>
-                        <CardContent className="p-10 flex flex-col gap-8 h-full">
-                          <div className="flex items-center justify-between">
-                            <Badge variant="outline" className="font-mono font-bold uppercase text-[10px] tracking-widest">
-                              {post.category}
-                            </Badge>
-                            <div className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
-                              {post.image}
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-4">
-                            <h3 className="text-3xl font-display font-black tracking-tighter uppercase italic group-hover:text-primary transition-colors leading-none">
-                              <GlitchText text={post.title} />
-                            </h3>
-                            <WordReveal
-                              text={post.excerpt}
-                              className="text-muted-foreground font-medium opacity-70 group-hover:opacity-100 transition-opacity"
-                            />
-                          </div>
+                  <Card 
+                    key={post.id}
+                    className="h-full group hover:border-primary/30 transition-all duration-700 overflow-hidden cursor-pointer border border-white/5 bg-white/[0.01]"
+                    onClick={() => setSelectedExam(post)}
+                  >
+                    <CardContent className="p-10 flex flex-col gap-8 h-full">
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline" className="font-mono font-semibold uppercase text-[10px] tracking-wide">
+                          {post.category}
+                        </Badge>
+                        <div className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+                          {post.image}
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <h3 className="text-3xl font-display font-semibold tracking-tighter uppercase group-hover:text-primary transition-colors leading-none">
+                          {post.title}
+                        </h3>
+                        <p className="text-muted-foreground font-medium opacity-70 group-hover:opacity-100 transition-opacity">
+                          {post.excerpt}
+                        </p>
+                      </div>
 
-                          <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
-                            <div className="flex items-center gap-4 text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-50">
-                              <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" /> {post.date}</span>
-                              <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> {post.readTime}</span>
-                            </div>
-                            <div className="w-10 h-10 rounded-full glass flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                          </div>
-                        </CardContent>
-                      </HoverSpotlight>
-                    </Card>
-                  </DramaticCard>
+                      <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-[10px] font-semibold tracking-wide text-muted-foreground uppercase opacity-50">
+                          <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" /> {post.date}</span>
+                          <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> {post.readTime}</span>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
-              </StaggerGrid>
+              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -205,30 +176,28 @@ export default function Blog() {
               <div className="space-y-12">
                 <div className="space-y-8">
                   <div className="flex items-center gap-4">
-                    <Badge variant="glass" className="text-primary border-primary/20 uppercase font-black italic">{selectedPost.category}</Badge>
-                    <span className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-[0.2em]">{selectedPost.readTime}</span>
+                    <Badge variant="secondary" className="text-primary uppercase font-semibold">{selectedPost.category}</Badge>
+                    <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wide">{selectedPost.readTime}</span>
                   </div>
-                  <DramaticReveal direction="flip">
-                    <h1 className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase italic leading-none text-foreground">
-                      <GlitchText text={selectedPost.title} />
-                    </h1>
-                  </DramaticReveal>
+                  <h1 className="text-5xl md:text-7xl font-display font-semibold tracking-tighter uppercase leading-none text-foreground">
+                    {selectedPost.title}
+                  </h1>
                   <div className="flex items-center gap-8 py-8 border-y border-white/5">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black">E</div>
+                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold">E</div>
                       <div>
-                        <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">Author</p>
+                        <p className="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">Author</p>
                         <p className="text-sm font-bold">Examessy Intel</p>
                       </div>
                     </div>
                     <div className="h-8 w-px bg-white/5" />
                     <div>
-                      <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">Published</p>
+                      <p className="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">Published</p>
                       <p className="text-sm font-bold">{selectedPost.date}</p>
                     </div>
                     <div className="ml-auto flex gap-4">
-                       <button className="w-10 h-10 rounded-xl glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all"><Share2 className="w-4 h-4" /></button>
-                       <button className="w-10 h-10 rounded-xl glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all"><Bookmark className="w-4 h-4" /></button>
+                       <button className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-muted-foreground hover:text-primary transition-all"><Share2 className="w-4 h-4" /></button>
+                       <button className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-muted-foreground hover:text-primary transition-all"><Bookmark className="w-4 h-4" /></button>
                     </div>
                   </div>
                 </div>
@@ -240,26 +209,17 @@ export default function Blog() {
                 </div>
 
                 <div className="pt-20 border-t border-white/5">
-                   <DramaticCard glowColor="rgba(var(--primary-rgb),0.4)">
-                     <Card variant="glass" className="p-12 text-center space-y-8">
-                        <DramaticReveal direction="scale">
-                          <h3 className="text-4xl font-display font-black tracking-tighter uppercase italic">
-                            Ready to Apply This Intel?
-                          </h3>
-                        </DramaticReveal>
-                        <WordReveal
-                          text="Join the network today and initialize your personalized preparation sequence."
-                          className="text-xl text-muted-foreground max-w-xl mx-auto"
-                        />
-                        <MagneticButton>
-                          <SparkButton>
-                            <LiquidButton className="h-20 px-12 rounded-2xl uppercase font-black tracking-widest shadow-2xl shadow-primary/20 bg-primary text-primary-foreground">
-                              START MISSION - ₹99
-                            </LiquidButton>
-                          </SparkButton>
-                        </MagneticButton>
-                     </Card>
-                   </DramaticCard>
+                   <Card className="p-12 text-center space-y-8 border border-white/5 bg-white/[0.01]">
+                      <h3 className="text-4xl font-display font-semibold tracking-tighter uppercase">
+                        Ready to Apply This Intel?
+                      </h3>
+                      <p className="text-xl text-muted-foreground max-w-xl mx-auto">
+                        Join the network today and initialize your personalized preparation sequence.
+                      </p>
+                      <Button className="h-14 px-12 rounded-2xl uppercase font-semibold tracking-wide bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all">
+                        START MISSION - ₹99
+                      </Button>
+                   </Card>
                 </div>
               </div>
             </motion.div>

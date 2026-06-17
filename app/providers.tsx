@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState, createContext, useContext, ReactNode } from 'react'
-import { WormholeTransitionProvider } from '@/components/transitions/wormhole-transition'
-import { GlobalLinkInterceptor } from '@/components/transitions/global-link-interceptor'
 
 interface ThemeContextType {
   theme: 'light' | 'dark'
@@ -17,8 +15,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    const currentTheme = savedTheme || systemTheme
+    const currentTheme = savedTheme || 'light'
     setTheme(currentTheme)
     applyTheme(currentTheme)
     setMounted(true)
@@ -39,10 +36,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   return (
     <ThemeContext.Provider value={{ theme: mounted ? theme : 'light', toggleTheme }}>
-      <WormholeTransitionProvider>
-        <GlobalLinkInterceptor />
-        {children}
-      </WormholeTransitionProvider>
+      {children}
     </ThemeContext.Provider>
   )
 }

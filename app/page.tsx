@@ -10,25 +10,8 @@ import { Button } from '@/components/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/card'
 import { Badge } from '@/components/badge'
 import { Footer } from '@/components/footer'
-import { ScrollProgress } from '@/components/scroll-progress'
-import { MouseSpotlight } from '@/components/mouse-spotlight'
 import { FAQ } from '@/components/faq'
-import { ParticleNetwork } from '@/components/animations/particle-network'
-import { FloatingCTA } from '@/components/animations/floating-cta'
-import { Typewriter } from '@/components/animations/typewriter'
-import { TextScramble } from '@/components/animations/text-scramble'
-import { ParallaxCard } from '@/components/animations/parallax-card'
-import { AnimatedCounter } from '@/components/animations/animated-counter'
-import { MorphingBlob } from '@/components/animations/morphing-blob'
-import { StepConnector } from '@/components/animations/step-connector'
-import { HomeBackground } from '@/components/3d/page-scenes'
-import { DramaticReveal, MagneticButton, SparkButton, GlitchText, ScrollingText, WordReveal, HoverSpotlight, DramaticCard, StaggerGrid, LiquidButton, ExplosiveCounter, PulseBorder } from '@/components/dramatic/dramatic-effects'
-import {
-  DramaticArrowRight, DramaticBookOpen, DramaticZap, DramaticTrendingUp, DramaticUsers, DramaticStar, DramaticCheck, DramaticLightbulb,
-  DramaticRocket, DramaticChart, DramaticSparkles, DramaticCreditCard, DramaticShield, DramaticGlobe, DramaticArrowUpRight, DramaticLock,
-  DramaticClock, DramaticTarget, DramaticTrophy, DramaticBrain, DramaticChevronRight, DramaticQuote, DramaticGraduationCap, DramaticMedal, DramaticMapPin,
-  DramaticPhone, DramaticCalendar, DramaticBookCheck, DramaticLayers, DramaticNetwork, DramaticGem,
-} from '@/components/icons/dramatic-icons'
+import { ArrowRight, ArrowUpRight, Trophy, Users, TrendingUp, Brain, Target, Check, Star, Shield, Calendar, Clock, Lock, CreditCard, GraduationCap, MapPin, Quote, Layers, BookCheck, Sparkles, Zap, Globe, Lightbulb, BarChart3, Medal } from 'lucide-react'
 import { IITDelhiIcon } from '@/components/icons/iit-delhi-icon'
 import { AIIMSIcon } from '@/components/icons/aiims-icon'
 import { BITSIcon } from '@/components/icons/bits-icon'
@@ -37,7 +20,6 @@ import { VITVelloreIcon } from '@/components/icons/vit-vellore-icon'
 import { IIITIcon } from '@/components/icons/iiit-icon'
 import { DTUIcon } from '@/components/icons/dtu-icon'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { ArrowRight, Quote, Sparkles } from 'lucide-react'
 
 function TrophyIcon({ className }: { className?: string }) {
   return (
@@ -109,25 +91,25 @@ const toppers = [
 ]
 
 const statsData = [
-  { label: 'Students Enrolled', value: 50000, suffix: '+', icon: DramaticUsers, color: 'text-blue-500' },
-  { label: 'Tests Conducted', value: 1200000, suffix: '+', icon: DramaticChart, color: 'text-emerald-500' },
-  { label: '99.9%+ Percentilers', value: 2500, suffix: '+', icon: DramaticTrophy, color: 'text-amber-500' },
-  { label: 'Years of Excellence', value: 8, suffix: '+', icon: DramaticCalendar, color: 'text-violet-500' },
+  { label: 'Students Enrolled', value: 50000, suffix: '+', icon: Users, color: 'text-blue-500' },
+  { label: 'Tests Conducted', value: 1200000, suffix: '+', icon: BarChart3, color: 'text-emerald-500' },
+  { label: '99.9%+ Percentilers', value: 2500, suffix: '+', icon: Trophy, color: 'text-amber-500' },
+  { label: 'Years of Excellence', value: 8, suffix: '+', icon: Calendar, color: 'text-violet-500' },
 ]
 
 const features = [
-  { icon: DramaticBrain, title: 'Expert-Curated Content', desc: 'Every question designed by India\'s top educators with 15+ years of experience in exam preparation.' },
-  { icon: DramaticTarget, title: 'Real Exam Simulation', desc: 'Offline test environment that exactly replicates the actual exam pattern, timing, and pressure.' },
-  { icon: DramaticTrophy, title: '99.9%+ Track Record', desc: 'Our students consistently rank among the top 0.1% across all major entrance examinations.' },
-  { icon: DramaticUsers, title: 'Small Batch Sizes', desc: 'Personalized attention with maximum 30 students per batch for optimal learning outcomes.' },
-  { icon: DramaticChart, title: 'Detailed Performance Analysis', desc: 'Comprehensive post-test analytics with question-wise breakdown and improvement roadmap.' },
-  { icon: DramaticClock, title: 'Flexible Scheduling', desc: 'Multiple test slots available across all centers. Choose what works best for your preparation.' },
+  { icon: Brain, title: 'Expert-Curated Content', desc: 'Every question designed by India\'s top educators with 15+ years of experience in exam preparation.' },
+  { icon: Target, title: 'Real Exam Simulation', desc: 'Offline test environment that exactly replicates the actual exam pattern, timing, and pressure.' },
+  { icon: Trophy, title: '99.9%+ Track Record', desc: 'Our students consistently rank among the top 0.1% across all major entrance examinations.' },
+  { icon: Users, title: 'Small Batch Sizes', desc: 'Personalized attention with maximum 30 students per batch for optimal learning outcomes.' },
+  { icon: BarChart3, title: 'Detailed Performance Analysis', desc: 'Comprehensive post-test analytics with question-wise breakdown and improvement roadmap.' },
+  { icon: Clock, title: 'Flexible Scheduling', desc: 'Multiple test slots available across all centers. Choose what works best for your preparation.' },
 ]
 
 const processSteps = [
-  { step: '01', title: 'Register & Enroll', desc: 'Sign up for your target exam and select your preferred test center location.', icon: DramaticBookCheck },
-  { step: '02', title: 'Take Offline Tests', desc: 'Visit your chosen center and appear for full-length simulated tests under exam conditions.', icon: DramaticLayers },
-  { step: '03', title: 'Analyze & Improve', desc: 'Get detailed performance reports, track your progress, and rank among peers.', icon: DramaticTrendingUp },
+  { step: '01', title: 'Register & Enroll', desc: 'Sign up for your target exam and select your preferred test center location.', icon: BookCheck },
+  { step: '02', title: 'Take Offline Tests', desc: 'Visit your chosen center and appear for full-length simulated tests under exam conditions.', icon: Layers },
+  { step: '03', title: 'Analyze & Improve', desc: 'Get detailed performance reports, track your progress, and rank among peers.', icon: TrendingUp },
 ]
 
 const testimonials = [
@@ -141,7 +123,7 @@ export default function Home() {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const [enrolledCount, setEnrolledCount] = useState(48237)
-  const [visibleToppers, setVisibleToppers] = useState(50)
+  const [visibleToppers, setVisibleToppers] = useState(12)
   const statsRef = useRef<HTMLDivElement>(null)
   const statsInView = useInView(statsRef as any, { once: true, margin: '-100px' })
 
@@ -166,19 +148,12 @@ export default function Home() {
   if (!mounted) return null
 
   return (
-    <main className="min-h-screen bg-background selection:bg-primary/30 relative overflow-x-hidden">
-      <MouseSpotlight />
-      <ScrollProgress />
-
-      {/* 3D Background */}
-      <HomeBackground />
+    <main className="min-h-screen bg-background selection:bg-primary/30">
 
       <Header showAuth={true} />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-        <MorphingBlob color="primary" size="500px" className="-top-40 -left-40 opacity-15" />
-        <MorphingBlob color="secondary" size="400px" className="-bottom-40 -right-40 opacity-10" style={{ animationDelay: '-10s' } as React.CSSProperties} />
+      <section className="min-h-screen flex items-center pt-28 pb-16">
 
         <motion.div style={{ opacity: heroOpacity, y: heroY, scale: heroScale }} className="w-full">
           <Container size="2xl">
@@ -193,7 +168,6 @@ export default function Home() {
                     className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/[0.06] border border-primary/[0.12] shadow-lg shadow-primary/[0.04]"
                   >
                     <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
                       <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
                     </span>
                     <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-primary uppercase font-mono">
@@ -205,7 +179,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter leading-[0.85]"
+                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-semibold tracking-tighter leading-tight"
                   >
                     <span className="block">From</span>
                     <span className="block text-gradient">
@@ -218,15 +192,9 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-lg md:text-xl text-muted-foreground/80 max-w-lg leading-relaxed font-clean min-h-[3.5rem]"
+                    className="text-lg md:text-xl text-muted-foreground/80 max-w-lg leading-relaxed"
                   >
-                    <Typewriter 
-                      text="India's most results-driven offline test series. Join 50,000+ students who transformed their preparation into top ranks."
-                      speed={25}
-                      delay={800}
-                      cursor={true}
-                      cursorChar="_"
-                    />
+                    India's most results-driven offline test series. Join 50,000+ students who transformed their preparation into top ranks.
                   </motion.p>
                 </div>
 
@@ -236,23 +204,18 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.5 }}
                   className="flex flex-wrap items-center gap-5"
                 >
-                  <MagneticButton>
-                    <motion.button
-                      whileHover={{ scale: 1.02, y: -1 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => router.push('/auth/sign-up')}
-                      className="group relative px-10 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base tracking-wide shadow-[0_4px_20px_rgba(var(--primary-rgb),0.3)] hover:shadow-[0_8px_32px_rgba(var(--primary-rgb),0.4)] transition-all overflow-hidden"
-                    >
-                      <span className="relative z-10 flex items-center gap-2.5">
-                        Enroll Now <DramaticArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" style={{ background: 'linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.1) 50%,transparent 60%)' }} />
-                    </motion.button>
-                  </MagneticButton>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => router.push('/auth/sign-up')}
+                    className="px-10 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base tracking-wide shadow-lg hover:shadow-xl transition-all"
+                  >
+                    Enroll Now <ArrowRight className="w-4 h-4 ml-2 inline" />
+                  </motion.button>
 
                   <Link href="/#results">
-                    <Button variant="ghost" size="lg" className="rounded-2xl font-bold text-base gap-2 h-18">
-                      View Results <DramaticArrowUpRight className="w-4 h-4" />
+                    <Button variant="ghost" size="lg" className="rounded-2xl font-bold text-base gap-2 h-14">
+                      View Results <ArrowUpRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </motion.div>
@@ -281,7 +244,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-foreground">
-                      <AnimatedCounter from={48200} to={50000} duration={4} suffix="+" /> Students
+                      50,000+ Students
                     </span>
                     <span className="text-[10px] text-muted-foreground/50 font-medium tracking-wide">
                       Currently enrolled across India
@@ -294,7 +257,7 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
-                  className="flex flex-wrap items-center gap-8 pt-4 border-t border-white/[0.04]"
+                  className="flex flex-wrap items-center gap-8 pt-4 border-t border-border-subtle"
                 >
                   {[
                     { label: 'Test Centers', val: '50+' },
@@ -302,7 +265,7 @@ export default function Home() {
                     { label: 'Success Rate', val: '94%' },
                   ].map((s, i) => (
                     <div key={i} className="flex flex-col">
-                      <span className="text-2xl md:text-3xl font-black font-display tracking-tight">{s.val}</span>
+                      <span className="text-2xl md:text-3xl font-semibold font-display tracking-tight">{s.val}</span>
                       <span className="text-[9px] font-bold tracking-wider text-muted-foreground/40 uppercase">{s.label}</span>
                     </div>
                   ))}
@@ -317,18 +280,16 @@ export default function Home() {
                 className="relative hidden lg:block"
               >
                 <div className="relative aspect-square max-w-[550px] ml-auto">
-                  {/* Main glass card */}
-                  <div className="absolute inset-0 rounded-[48px] bg-gradient-to-br from-primary/[0.08] via-secondary/[0.05] to-accent/[0.08] backdrop-blur-3xl border border-white/[0.06] shadow-2xl overflow-hidden">
-                    <div className="absolute inset-0 bg-grid-white opacity-[0.03]" />
-                    <div className="absolute inset-0 noise-bg" />
+                  {/* Main card */}
+                  <div className="absolute inset-0 rounded-[48px] bg-gradient-to-br from-primary/[0.08] via-secondary/[0.05] to-accent/[0.08] backdrop-blur-3xl border border-border-subtle shadow-2xl overflow-hidden">
 
                     {/* Content inside */}
                     <div className="relative z-10 p-10 h-full flex flex-col justify-between">
                       <div className="space-y-8">
                         <div className="flex items-center justify-between">
-                          <Badge variant="glass" className="px-4 py-1.5 rounded-xl text-[10px] font-bold tracking-wider">
+                          <Badge variant="secondary" className="px-4 py-1.5 rounded-xl text-[10px] font-semibold tracking-wide">
                             <span className="flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                               LIVE
                             </span>
                           </Badge>
@@ -342,33 +303,33 @@ export default function Home() {
                             </div>
                             <div>
                               <p className="text-xs font-bold tracking-wider text-muted-foreground/60 uppercase">Top Rank</p>
-                              <p className="text-4xl font-black font-display tracking-tighter">
-                                <TextScramble as="span" speed={30} tick={3}>AIR #3</TextScramble>
+                              <p className="text-4xl font-semibold font-display tracking-tighter">
+                                AIR #3
                               </p>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-2 gap-4">
-                            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.04] space-y-2">
-                              <DramaticGraduationCap className="w-5 h-5 text-primary/60" />
+                            <div className="p-5 rounded-2xl bg-card-bg-subtle border border-border-subtle space-y-2">
+                              <GraduationCap className="w-5 h-5 text-primary/60" />
                               <p className="text-xs text-muted-foreground/40">Exams Covered</p>
-                              <p className="text-xl font-black font-display">8+</p>
+                              <p className="text-xl font-semibold font-display">8+</p>
                             </div>
-                            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.04] space-y-2">
-                              <DramaticMapPin className="w-5 h-5 text-secondary/60" />
+                            <div className="p-5 rounded-2xl bg-card-bg-subtle border border-border-subtle space-y-2">
+                              <MapPin className="w-5 h-5 text-secondary/60" />
                               <p className="text-xs text-muted-foreground/40">Centers</p>
-                              <p className="text-xl font-black font-display">50+</p>
+                              <p className="text-xl font-semibold font-display">50+</p>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="p-6 rounded-2xl bg-gradient-to-r from-primary/[0.06] to-secondary/[0.06] border border-white/[0.04]">
+                      <div className="p-6 rounded-2xl bg-gradient-to-r from-primary/[0.06] to-secondary/[0.06] border border-border-subtle">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xs font-bold tracking-wider text-muted-foreground/60 uppercase">Enrolled Today</span>
                           <span className="text-xs text-primary font-mono font-bold">+{Math.floor(Math.random() * 20) + 5}</span>
                         </div>
-                        <div className="w-full h-2 rounded-full bg-white/[0.04] overflow-hidden">
+                        <div className="w-full h-2 rounded-full bg-card-bg-subtle overflow-hidden">
                           <motion.div
                             className="h-full rounded-full bg-primary"
                             initial={{ width: '0%' }}
@@ -379,53 +340,13 @@ export default function Home() {
                         <div className="flex justify-between mt-1.5">
                           <span className="text-[10px] text-muted-foreground/30">0</span>
                           <span className="text-[10px] text-muted-foreground/30">
-                            <AnimatedCounter from={0} to={50000} duration={5} suffix=" Capacity" />
+                            50,000 Capacity
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Floating elements */}
-                  <motion.div
-                    className="absolute -top-8 -right-8 p-6 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/[0.06] shadow-2xl"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                        <DramaticStar className="w-6 h-6 text-amber-500" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold tracking-wider text-muted-foreground/60 uppercase">Avg. Score</p>
-                        <p className="text-2xl font-black font-display">96.4%</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="absolute -bottom-6 -left-10 p-6 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/[0.06] shadow-2xl"
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                        <DramaticUsers className="w-6 h-6 text-emerald-500" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold tracking-wider text-muted-foreground/60 uppercase">Batch Size</p>
-                        <p className="text-2xl font-black font-display">30:1</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Decorative ring */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] pointer-events-none opacity-[0.04]">
-                    <div
-                      className="w-full h-full border border-dashed border-white/40 rounded-full"
-                      style={{ animation: 'spin 40s linear infinite' }}
-                    />
-                  </div>
                 </div>
               </motion.div>
             </div>
@@ -434,33 +355,29 @@ export default function Home() {
       </section>
 
       {/* ===== TRUST MARQUEE ===== */}
-      <section className="py-10 border-y border-white/[0.03] overflow-hidden">
+      <section className="py-10 border-y border-border-subtle overflow-hidden">
         <Container size="2xl">
           <div className="flex items-center gap-8 mb-5">
             <span className="text-[9px] font-bold tracking-[0.3em] text-muted-foreground/30 uppercase whitespace-nowrap">Trusted by students from</span>
             <div className="h-px flex-1 bg-gradient-to-r from-white/[0.05] to-transparent" />
           </div>
-          <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
-            <div className="flex gap-16 animate-scroll" style={{ width: 'max-content', ['--animation-duration' as string]: '30s' } as React.CSSProperties}>
-              {[...Array(2)].map((_, setIdx) => (
-                <div key={setIdx} className="flex gap-16 items-center">
-                  {[
-                    { name: 'IIT Delhi Zone', Icon: IITDelhiIcon },
-                    { name: 'AIIMS Delhi', Icon: AIIMSIcon },
-                    { name: 'BITS Pilani', Icon: BITSIcon },
-                    { name: 'NIT Trichy', Icon: NITIcon },
-                    { name: 'VIT Vellore', Icon: VITVelloreIcon },
-                    { name: 'IIT Bombay Zone', Icon: IITDelhiIcon },
-                    { name: 'AIIMS Nagpur', Icon: AIIMSIcon },
-                    { name: 'NIT Surathkal', Icon: NITIcon },
-                    { name: 'IIIT Hyderabad', Icon: IIITIcon },
-                    { name: 'DTU Delhi', Icon: DTUIcon },
-                  ].map((node) => (
-                    <div key={node.name} className="flex items-center gap-3 text-muted-foreground/20 hover:text-muted-foreground/40 transition-colors duration-500">
-                      <node.Icon className="w-4 h-4" />
-                      <span className="text-xs font-bold tracking-widest uppercase whitespace-nowrap">{node.name}</span>
-                    </div>
-                  ))}
+          <div className="relative overflow-hidden">
+            <div className="flex gap-16 flex-wrap justify-center" style={{ width: 'max-content' }}>
+              {[
+                { name: 'IIT Delhi Zone', Icon: IITDelhiIcon },
+                { name: 'AIIMS Delhi', Icon: AIIMSIcon },
+                { name: 'BITS Pilani', Icon: BITSIcon },
+                { name: 'NIT Trichy', Icon: NITIcon },
+                { name: 'VIT Vellore', Icon: VITVelloreIcon },
+                { name: 'IIT Bombay Zone', Icon: IITDelhiIcon },
+                { name: 'AIIMS Nagpur', Icon: AIIMSIcon },
+                { name: 'NIT Surathkal', Icon: NITIcon },
+                { name: 'IIIT Hyderabad', Icon: IIITIcon },
+                { name: 'DTU Delhi', Icon: DTUIcon },
+              ].map((node) => (
+                <div key={node.name} className="flex items-center gap-3 text-muted-foreground/20">
+                  <node.Icon className="w-4 h-4" />
+                  <span className="text-xs font-semibold tracking-wide uppercase whitespace-nowrap">{node.name}</span>
                 </div>
               ))}
             </div>
@@ -479,10 +396,10 @@ export default function Home() {
             className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
           >
             <div className="space-y-4 max-w-2xl">
-              <Badge variant="glass" className="px-5 py-1.5 rounded-full border-amber-500/20 text-amber-500 font-bold tracking-wider text-[10px] uppercase">
-                <DramaticTrophy className="w-3.5 h-3.5 mr-1.5" /> 99.9%+ Percentilers
+              <Badge variant="secondary" className="px-4 py-1.5 rounded-full text-xs font-semibold">
+                99.9%+ Percentilers
               </Badge>
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[0.88]">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-semibold tracking-tighter leading-tight">
                 Our{' '}
                 <span className="text-amber-600 dark:text-amber-400">
                   Toppers
@@ -495,8 +412,8 @@ export default function Home() {
               </p>
             </div>
             <Link href="/testimonials">
-              <Button variant="outline" size="lg" className="rounded-2xl border-white/[0.08] h-14 font-bold group">
-                View All Results <DramaticArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="outline" size="lg" className="rounded-2xl border-border-subtle h-14 font-bold group">
+                View All Results <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
           </motion.div>
@@ -510,14 +427,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.03, duration: 0.5, ease: 'easeOut' }}
               >
-                <ParallaxCard tiltDegree={4} scale={1.02}>
-                  <div className={`relative p-4 rounded-2xl ${student.bgGradient} border border-white/[0.05] backdrop-blur-sm bg-background/60 overflow-hidden group transition-all duration-500 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10`}>
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/[0.03] to-transparent rounded-bl-full" />
-
-                    {/* Animated gradient border on hover */}
-                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                      <div className="absolute inset-0 rounded-2xl animate-border-pulse" />
-                    </div>
+                  <div className={`relative p-4 rounded-2xl ${student.bgGradient} border border-border-subtle backdrop-blur-sm bg-background/60 overflow-hidden group transition-all duration-300 hover:border-primary/30 hover:shadow-lg`}>
 
                     <div className="flex flex-col gap-3 relative z-10">
                       <div className="flex items-start justify-between">
@@ -532,18 +442,18 @@ export default function Home() {
                             />
                           </div>
                           <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br ${student.gradient} flex items-center justify-center border-2 border-background shadow-md`}>
-                            <DramaticMedal className="w-2.5 h-2.5 text-white" />
+                            <Medal className="w-2.5 h-2.5 text-white" />
                           </div>
                         </div>
                         <div className="px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500/10 to-amber-600/10 border border-amber-500/20 shadow-sm">
-                          <span className="text-[9px] font-black text-amber-500 tracking-wider">{student.percentile}%</span>
+                          <span className="text-[9px] font-semibold text-amber-500 tracking-wide">{student.percentile}%</span>
                         </div>
                       </div>
 
                       <div>
-                        <h3 className="text-sm font-black font-display tracking-tight leading-tight">{student.name}</h3>
+                        <h3 className="text-sm font-semibold font-display tracking-tight leading-tight">{student.name}</h3>
                         <p className="text-[10px] text-muted-foreground/50 font-medium mt-0.5 flex items-center gap-1">
-                          <DramaticMapPin className="w-2.5 h-2.5" /> {student.city}
+                          <MapPin className="w-2.5 h-2.5" /> {student.city}
                         </p>
                       </div>
 
@@ -551,7 +461,7 @@ export default function Home() {
                         <div className="px-2.5 py-1 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 shadow-sm">
                           <span className="text-[9px] font-bold text-primary">{student.exam}</span>
                         </div>
-                        <div className="px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] shadow-sm">
+                        <div className="px-2.5 py-1 rounded-full bg-card-bg-subtle border border-border-subtle shadow-sm">
                           <span className="text-[9px] font-bold text-muted-foreground">{student.rank}</span>
                         </div>
                       </div>
@@ -562,7 +472,7 @@ export default function Home() {
                           <span>Score</span>
                           <span className="font-bold text-foreground">{student.score}/{student.total}</span>
                         </div>
-                        <div className="w-full h-2 rounded-full bg-white/[0.04] overflow-hidden shadow-inner">
+                        <div className="w-full h-2 rounded-full bg-card-bg-subtle overflow-hidden shadow-inner">
                           <motion.div
                             className={`h-full rounded-full bg-gradient-to-r ${student.gradient} shadow-lg`}
                             initial={{ width: '0%' }}
@@ -573,27 +483,8 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Holographic shimmer overlay */}
-                      <motion.div
-                        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 rounded-[inherit] overflow-hidden"
-                      >
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"
-                          style={{ backgroundSize: '200% 100%' }}
-                          animate={{ x: ['-100%', '200%'] }}
-                          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-                        />
-                        <motion.div
-                          className="absolute inset-0 animate-holographic rounded-[inherit]"
-                          style={{
-                            background: 'linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.03) 40%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.03) 60%, transparent 70%)',
-                            backgroundSize: '300% 300%',
-                          }}
-                        />
-                      </motion.div>
                     </div>
                   </div>
-                </ParallaxCard>
               </motion.div>
             ))}
           </div>
@@ -609,9 +500,9 @@ export default function Home() {
                 onClick={() => setVisibleToppers(prev => Math.min(prev + 20, toppers.length))}
                 variant="outline"
                 size="lg"
-                className="rounded-2xl border-white/[0.08] h-14 font-bold group px-8"
+                className="rounded-2xl border-border-subtle h-14 font-bold group px-8"
               >
-                Show More Students <DramaticArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                Show More Students <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </motion.div>
           )}
@@ -621,103 +512,72 @@ export default function Home() {
       {/* ===== STATS COUNTER ===== */}
       <section id="stats" ref={statsRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent pointer-events-none" />
-        {/* scrolling ticker above stats */}
-        <ScrollingText
-          texts={['50,000+ Students','1.2M+ Tests','AIR #3 JEE','AIR #7 NEET','99.9% Percentile','8+ Years','50+ Centers','94% Success Rate']}
-          speed={35}
-          className="text-foreground/20"
-        />
         <Container size="2xl" className="mt-10">
-          <StaggerGrid className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
             {statsData.map((stat, i) => {
               const Icon = stat.icon
               return (
-                <DramaticCard key={i} className="rounded-3xl" glowColor={['#818cf8','#34d399','#fbbf24','#a78bfa'][i]}>
-                  <HoverSpotlight>
-                    <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.04] text-center space-y-4 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/[0.08]">
-                      <motion.div
-                        className={`w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mx-auto transition-all duration-500 ${stat.color}`}
-                        whileHover={{ scale: 1.15, rotate: -5 }}
-                      >
-                        <Icon className="w-7 h-7" />
-                      </motion.div>
-                      <div className="space-y-1">
-                        <p className="text-4xl md:text-5xl font-black font-display tracking-tight">
-                          {statsInView ? (
-                            <ExplosiveCounter from={0} to={stat.value} duration={2.5} suffix={stat.suffix} />
-                          ) : (
-                            <span>0{stat.suffix}</span>
-                          )}
-                        </p>
-                        <p className="text-sm text-muted-foreground/50 font-medium tracking-wide">{stat.label}</p>
-                      </div>
+                <Card key={i} className="rounded-3xl bg-card-bg-subtle border border-border-subtle text-center space-y-4 transition-all duration-300 hover:bg-card-bg-hover hover:border-border-subtle">
+                  <CardContent className="p-8">
+                    <motion.div
+                      className={`w-14 h-14 rounded-2xl bg-card-bg-subtle border border-border-subtle flex items-center justify-center mx-auto transition-all duration-300 ${stat.color}`}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Icon className="w-7 h-7" />
+                    </motion.div>
+                    <div className="space-y-1">
+                      <p className="text-4xl md:text-5xl font-semibold font-display tracking-tight">
+                        {stat.value}{stat.suffix}
+                      </p>
+                      <p className="text-sm text-muted-foreground/50 font-medium tracking-wide">{stat.label}</p>
                     </div>
-                  </HoverSpotlight>
-                </DramaticCard>
+                  </CardContent>
+                </Card>
               )
             })}
-          </StaggerGrid>
+          </div>
         </Container>
-        <ScrollingText
-          texts={['JEE Mains','NEET','VITEEE','BITSSAT','COMEDK','JEE Advanced','AIIMS','MHT-CET']}
-          speed={45}
-          reverse
-          className="text-foreground/15 mt-10"
-        />
       </section>
 
       {/* ===== WHY CHOOSE US / FEATURES ===== */}
       <section className="py-28 md:py-36 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.01] to-transparent pointer-events-none" />
         <Container size="2xl">
-          <DramaticReveal direction="up" className="text-center mb-16 space-y-4">
-            <Badge variant="glass" className="px-5 py-1.5 rounded-full border-primary/20 text-primary font-bold tracking-wider text-[10px] uppercase">
-              <DramaticSparkles className="w-3.5 h-3.5 mr-1.5" /> Why Examessy
+          <div className="text-center mb-16 space-y-4">
+            <Badge variant="secondary" className="px-4 py-1.5 rounded-full text-xs font-semibold">
+              Why Examessy
             </Badge>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[0.88]">
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-semibold tracking-tighter leading-tight">
               Engineered for{' '}
               <span className="text-primary">Excellence</span>
             </h2>
-            <WordReveal
-              text="Every aspect of our program is designed to maximize your potential. Here's what makes us different."
-              className="text-lg text-muted-foreground/60 max-w-xl mx-auto"
-            />
-          </DramaticReveal>
+            <p className="text-lg text-muted-foreground/60 max-w-xl mx-auto">
+              Every aspect of our program is designed to maximize your potential. Here's what makes us different.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((feature, i) => {
               const Icon = feature.icon
               return (
-                <DramaticReveal key={i} direction={['left','up','right','left','up','right'][i] as any} delay={i * 0.1} className={i === 0 ? 'lg:col-span-2 lg:row-span-1' : ''}>
-                  <DramaticCard className="rounded-3xl h-full" glowColor="rgba(var(--primary-rgb),0.4)">
-                    <HoverSpotlight>
-                      <ParallaxCard tiltDegree={4} glare={false} scale={1.01}>
-                        <div className={`relative p-8 md:p-10 rounded-3xl border border-white/[0.04] bg-white/[0.01] backdrop-blur-sm h-full group hover:border-primary/[0.12] transition-all duration-500 ${i === 0 ? 'lg:p-12' : ''}`}>
-                          <div className={`flex ${i === 0 ? 'lg:flex-row' : 'flex-col'} gap-6 ${i === 0 ? 'lg:items-center' : ''}`}>
-                            <motion.div
-                              className={`${i === 0 ? 'lg:w-16 lg:h-16' : ''} w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/[0.08] to-secondary/[0.08] border border-white/[0.05] flex items-center justify-center text-primary flex-shrink-0`}
-                              whileHover={{ scale: 1.2, rotate: -8 }}
-                              transition={{ type: 'spring', stiffness: 300 }}
-                            >
-                              <Icon className={`${i === 0 ? 'lg:w-8 lg:h-8' : ''} w-7 h-7`} />
-                            </motion.div>
-                            <div className="space-y-3">
-                              <h3 className={`font-black font-display tracking-tight ${i === 0 ? 'lg:text-3xl' : 'text-2xl'}`}>
-                                <GlitchText text={feature.title} />
-                              </h3>
-                              <p className={`text-muted-foreground/60 leading-relaxed ${i === 0 ? 'lg:text-lg' : 'text-sm'}`}>{feature.desc}</p>
-                            </div>
-                          </div>
-                          <motion.div
-                            className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/[0.03] to-transparent rounded-bl-full pointer-events-none"
-                            animate={{ opacity: [0.3, 0.6, 0.3] }}
-                            transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
-                          />
-                        </div>
-                      </ParallaxCard>
-                    </HoverSpotlight>
-                  </DramaticCard>
-                </DramaticReveal>
+                <Card key={i} className={`rounded-3xl h-full bg-card-bg-subtle border border-border-subtle backdrop-blur-sm hover:border-primary/[0.12] transition-all duration-300 ${i === 0 ? 'lg:col-span-2 lg:row-span-1' : ''}`}>
+                  <CardContent className={`p-8 md:p-10 ${i === 0 ? 'lg:p-12' : ''}`}>
+                    <div className={`flex ${i === 0 ? 'lg:flex-row' : 'flex-col'} gap-6 ${i === 0 ? 'lg:items-center' : ''}`}>
+                      <motion.div
+                        className={`${i === 0 ? 'lg:w-16 lg:h-16' : ''} w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/[0.08] to-secondary/[0.08] border border-border-subtle flex items-center justify-center text-primary flex-shrink-0`}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Icon className={`${i === 0 ? 'lg:w-8 lg:h-8' : ''} w-7 h-7`} />
+                      </motion.div>
+                      <div className="space-y-3">
+                        <h3 className={`font-semibold font-display tracking-tight ${i === 0 ? 'lg:text-3xl' : 'text-2xl'}`}>
+                          {feature.title}
+                        </h3>
+                        <p className={`text-muted-foreground/60 leading-relaxed ${i === 0 ? 'lg:text-lg' : 'text-sm'}`}>{feature.desc}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               )
             })}
           </div>
@@ -728,63 +588,51 @@ export default function Home() {
       <section className="py-28 md:py-36 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.02] via-transparent to-primary/[0.01] pointer-events-none" />
         <Container size="2xl">
-          <DramaticReveal direction="scale" className="text-center mb-20 space-y-4">
-            <Badge variant="glass" className="px-5 py-1.5 rounded-full border-secondary/20 text-secondary font-bold tracking-wider text-[10px] uppercase">
-              <DramaticLayers className="w-3.5 h-3.5 mr-1.5" /> Simple Process
+          <div className="text-center mb-20 space-y-4">
+            <Badge variant="secondary" className="px-4 py-1.5 rounded-full text-xs font-semibold">
+              Simple Process
             </Badge>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[0.88]">
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-semibold tracking-tighter leading-tight">
               Your Journey in{' '}
               <span className="text-secondary">3 Steps</span>
             </h2>
-          </DramaticReveal>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
-            <StepConnector />
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {processSteps.map((step, i) => {
               const Icon = step.icon
               return (
-                <DramaticReveal key={i} direction="flip" delay={i * 0.2} className="relative flex flex-col items-center text-center group">
-                  <PulseBorder className="mb-8 rounded-3xl" color="rgba(var(--primary-rgb),0.4)">
-                    <div className="relative">
-                      <motion.div
-                        className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary/[0.08] to-secondary/[0.08] border border-white/[0.06] flex items-center justify-center"
-                        whileHover={{ scale: 1.15, rotate: -8 }}
-                        transition={{ type: 'spring', stiffness: 300 }}
-                      >
-                        <Icon className="w-10 h-10 text-primary" />
-                      </motion.div>
-                      <motion.div
-                        className="absolute -top-3 -right-3 w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-sm font-black shadow-lg"
-                        animate={{ boxShadow: ['0 0 0 0 rgba(var(--primary-rgb),0.4)', '0 0 0 12px rgba(var(--primary-rgb),0)', '0 0 0 0 rgba(var(--primary-rgb),0)'] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.6 }}
-                      >
-                        {step.step}
-                      </motion.div>
+                <div key={i} className="relative flex flex-col items-center text-center group">
+                  <div className="relative mb-8">
+                    <motion.div
+                      className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary/[0.08] to-secondary/[0.08] border border-border-subtle flex items-center justify-center"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Icon className="w-10 h-10 text-primary" />
+                    </motion.div>
+                    <div className="absolute -top-3 -right-3 w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-sm font-semibold shadow-lg">
+                      {step.step}
                     </div>
-                  </PulseBorder>
-                  <h3 className="text-2xl md:text-3xl font-black font-display tracking-tight mb-3">
-                    <GlitchText text={step.title} />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-semibold font-display tracking-tight mb-3">
+                    {step.title}
                   </h3>
                   <p className="text-muted-foreground/60 leading-relaxed max-w-xs">{step.desc}</p>
-                </DramaticReveal>
+                </div>
               )
             })}
           </div>
 
-          <DramaticReveal direction="up" delay={0.3} className="flex justify-center mt-16">
-            <MagneticButton>
-              <SparkButton onClick={() => router.push('/auth/sign-up')}>
-                <LiquidButton
-                  onClick={() => router.push('/auth/sign-up')}
-                  className="group relative px-12 py-5 rounded-2xl bg-primary text-primary-foreground font-black text-lg tracking-wide shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors overflow-hidden gradient-border"
-                >
-                  <span className="relative z-10 flex items-center gap-3">
-                    Start Your Journey <DramaticArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-                  </span>
-                </LiquidButton>
-              </SparkButton>
-            </MagneticButton>
-          </DramaticReveal>
+          <div className="flex justify-center mt-16">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => router.push('/auth/sign-up')}
+              className="px-12 py-5 rounded-2xl bg-primary text-primary-foreground font-semibold text-lg tracking-wide shadow-lg hover:shadow-xl transition-all"
+            >
+              Start Your Journey <ArrowRight className="w-5 h-5 ml-3 inline" />
+            </motion.button>
+          </div>
         </Container>
       </section>
 
@@ -798,10 +646,10 @@ export default function Home() {
             className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
           >
             <div className="space-y-4 max-w-2xl">
-              <Badge variant="glass" className="px-5 py-1.5 rounded-full border-emerald-500/20 text-emerald-500 font-bold tracking-wider text-[10px] uppercase">
-                <DramaticQuote className="w-3.5 h-3.5 mr-1.5" /> Success Stories
+              <Badge variant="secondary" className="px-4 py-1.5 rounded-full text-xs font-semibold">
+                Success Stories
               </Badge>
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[0.88]">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-semibold tracking-tighter leading-tight">
                 What Our{' '}
                 <span className="text-emerald-600 dark:text-emerald-400">
                   Toppers
@@ -821,9 +669,9 @@ export default function Home() {
                 transition={{ delay: i * 0.1 }}
                 className={i === 0 ? 'md:col-span-2' : ''}
               >
-                <ParallaxCard tiltDegree={3} glare={false} scale={1.005}>
-                  <div className={`relative p-8 md:p-10 rounded-3xl border border-white/[0.04] bg-gradient-to-br from-white/[0.02] to-transparent backdrop-blur-sm h-full group ${i === 0 ? 'md:p-12' : ''}`}>
-                    <DramaticQuote className={`text-primary/10 mb-4 ${i === 0 ? 'md:w-12 md:h-12' : 'w-8 h-8'}`} />
+                <Card className={`relative p-8 md:p-10 rounded-3xl border border-border-subtle bg-gradient-to-br from-card-bg-subtle to-transparent backdrop-blur-sm h-full group ${i === 0 ? 'md:p-12' : ''}`}>
+                  <CardContent>
+                    <Quote className={`text-primary/10 mb-4 ${i === 0 ? 'md:w-12 md:h-12' : 'w-8 h-8'}`} />
 
                     <p className={`text-muted-foreground/70 leading-relaxed mb-8 ${i === 0 ? 'md:text-xl md:leading-relaxed' : 'text-sm'}`}>
                       &ldquo;{t.quote}&rdquo;
@@ -840,18 +688,85 @@ export default function Home() {
                         />
                       </div>
                       <div>
-                        <p className="font-black font-display tracking-tight">{t.name}</p>
+                        <p className="font-semibold font-display tracking-tight">{t.name}</p>
                         <p className="text-xs text-muted-foreground/50 font-medium">{t.exam}</p>
                       </div>
                     </div>
 
-                    <motion.div
-                      className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/[0.02] to-transparent rounded-bl-full pointer-events-none"
-                      animate={{ opacity: [0.2, 0.4, 0.2] }}
-                      transition={{ duration: 5, repeat: Infinity, delay: i * 0.5 }}
-                    />
-                  </div>
-                </ParallaxCard>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== PREVIOUS YEAR QUESTIONS ===== */}
+      <section id="pyq" className="py-28 md:py-36 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent pointer-events-none" />
+        <Container size="2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16 space-y-4"
+          >
+            <Badge variant="secondary" className="px-4 py-1.5 rounded-full text-xs font-semibold">
+              <BookCheck className="w-3.5 h-3.5 mr-1.5" /> Previous Year Questions
+            </Badge>
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-semibold tracking-tighter leading-tight">
+              Questions That{' '}
+              <span className="text-primary">Matter</span>
+            </h2>
+            <p className="text-lg text-muted-foreground/70 max-w-2xl mx-auto">
+              Our question bank includes actual previous year questions. See how many of our questions appear in real exams.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { exam: 'JEE Mains', slug: 'jee_mains', percentage: 87, color: 'from-indigo-500 to-blue-600' },
+              { exam: 'JEE Advanced', slug: 'jee_advanced', percentage: 82, color: 'from-blue-500 to-cyan-600' },
+              { exam: 'NEET', slug: 'neet', percentage: 91, color: 'from-emerald-500 to-teal-600' },
+              { exam: 'VIT', slug: 'vit', percentage: 79, color: 'from-violet-500 to-purple-600' },
+              { exam: 'BITSAT', slug: 'bitsat', percentage: 85, color: 'from-orange-500 to-amber-600' },
+              { exam: 'Manipal', slug: 'manipal', percentage: 77, color: 'from-pink-500 to-rose-600' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.exam}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                onClick={() => router.push(`/pyq/${item.slug}`)}
+                className="cursor-pointer group"
+              >
+                <Card className="h-full rounded-3xl border border-border-subtle bg-card hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+                  <CardContent className="p-8 space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-2xl font-display font-semibold tracking-tight">{item.exam}</h3>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-end justify-between">
+                        <span className="text-5xl font-display font-bold text-foreground">{item.percentage}%</span>
+                        <span className="text-sm text-muted-foreground mb-2">match rate</span>
+                      </div>
+                      <div className="w-full h-3 rounded-full bg-card-bg-subtle overflow-hidden">
+                        <motion.div
+                          className={`h-full rounded-full bg-gradient-to-r ${item.color}`}
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${item.percentage}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.5, delay: 0.3, ease: 'easeOut' }}
+                        />
+                      </div>
+                      <p className="text-xs text-muted-foreground/50">
+                        {item.percentage}% of our questions appeared in actual {item.exam} exams
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -869,10 +784,10 @@ export default function Home() {
               viewport={{ once: true }}
               className="lg:col-span-1 space-y-6 lg:sticky lg:top-28 h-fit"
             >
-              <Badge variant="glass" className="px-5 py-1.5 rounded-full border-primary/20 text-primary font-bold tracking-wider text-[10px] uppercase">
+              <Badge variant="secondary" className="px-5 py-1.5 rounded-full text-primary font-semibold tracking-wide text-[10px] uppercase">
                 <HelpCircle className="w-3.5 h-3.5 mr-1.5" /> FAQ
               </Badge>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-[0.9]">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold tracking-tighter leading-tight">
                 Got{' '}
                 <span className="text-primary">Questions?</span>
                 <br />We&apos;ve Got Answers
@@ -880,15 +795,15 @@ export default function Home() {
               <p className="text-muted-foreground/60 leading-relaxed">
                 Everything you need to know about our offline test series program. Can&apos;t find what you&apos;re looking for? Reach out to us directly.
               </p>
-              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] space-y-4">
+              <div className="p-6 rounded-2xl bg-card-bg-subtle border border-border-subtle space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
                   <span className="text-sm font-bold">Support available 24/7</span>
                 </div>
                 <p className="text-xs text-muted-foreground/50">Our team is always ready to help you</p>
                 <Link href="/contact">
-                  <Button variant="outline" size="sm" fullWidth className="rounded-xl border-white/[0.06] h-12 font-bold text-xs tracking-wide mt-2 group">
-                    Contact Us <DramaticArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <Button variant="outline" size="sm" fullWidth className="rounded-xl border-border-subtle h-12 font-bold text-xs tracking-wide mt-2 group">
+                    Contact Us <ArrowRight className="w-3.5 h-3.5 ml-2" />
                   </Button>
                 </Link>
               </div>
@@ -904,65 +819,54 @@ export default function Home() {
       {/* ===== FINAL CTA ===== */}
       <section className="py-28 md:py-36 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.03] to-transparent pointer-events-none" />
-        <MorphingBlob color="primary" size="700px" className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04]" speed={25} />
 
         <Container size="lg">
-          <DramaticReveal direction="scale">
-            <div className="relative text-center">
-              <div className="relative p-10 md:p-16 lg:p-24 rounded-[40px] border border-white/[0.04] bg-gradient-to-br from-primary/[0.04] via-secondary/[0.02] to-accent/[0.04] backdrop-blur-sm overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
-                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]" />
+          <div className="relative text-center">
+            <div className="relative p-10 md:p-16 lg:p-24 rounded-[40px] border border-white/[0.04] bg-gradient-to-br from-primary/[0.04] via-secondary/[0.02] to-accent/[0.04] backdrop-blur-sm overflow-hidden">
 
-                <div className="relative z-10 space-y-8 max-w-3xl mx-auto">
-                  <Badge variant="glass" className="px-6 py-2 rounded-full border-primary/20 text-primary font-bold tracking-wider text-xs uppercase mx-auto w-fit">
-                    <DramaticSparkles className="w-4 h-4 mr-2" /> Limited Seats Available
-                  </Badge>
+              <div className="relative z-10 space-y-8 max-w-3xl mx-auto">
+                <Badge variant="secondary" className="px-6 py-2 rounded-full text-xs font-semibold mx-auto w-fit">
+                  Limited Seats Available
+                </Badge>
 
-                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[0.9]">
-                    <WordReveal text="Ready to Join the" className="block" />
-                    <span className="relative z-10 text-accent block mt-2">
-                      Top 0.1%?
-                    </span>
-                  </h2>
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-semibold tracking-tighter leading-tight">
+                  Ready to Join the
+                  <span className="relative z-10 text-accent block mt-2">
+                    Top 0.1%?
+                  </span>
+                </h2>
 
-                  <p className="text-lg md:text-xl text-muted-foreground/70 max-w-2xl mx-auto leading-relaxed">
-                    Join 50,000+ students who trusted Examessy for their preparation. Your journey to a top rank starts with a single step.
-                  </p>
+                <p className="text-lg md:text-xl text-muted-foreground/70 max-w-2xl mx-auto leading-relaxed">
+                  Join 50,000+ students who trusted Examessy for their preparation. Your journey to a top rank starts with a single step.
+                </p>
 
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <MagneticButton>
-                      <SparkButton onClick={() => router.push('/auth/sign-up')}>
-                        <LiquidButton
-                          onClick={() => router.push('/auth/sign-up')}
-                          className="group relative px-12 py-5 rounded-2xl bg-primary text-primary-foreground font-black text-lg tracking-wide shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors overflow-hidden gradient-border"
-                        >
-                          <span className="relative z-10 flex items-center gap-3">
-                            Enroll for ₹99 <DramaticArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-                          </span>
-                        </LiquidButton>
-                      </SparkButton>
-                    </MagneticButton>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => router.push('/auth/sign-up')}
+                    className="px-12 py-5 rounded-2xl bg-primary text-primary-foreground font-semibold text-lg tracking-wide shadow-lg hover:shadow-xl transition-all"
+                  >
+                    Enroll for ₹99 <ArrowRight className="w-5 h-5 ml-3 inline" />
+                  </motion.button>
 
-                    <Link href="/exams">
-                      <LiquidButton className="group rounded-2xl border border-white/[0.08] h-[66px] px-10 font-bold text-base gap-2 flex items-center bg-transparent text-foreground hover:bg-white/5 transition-colors">
-                        Explore Exams <DramaticArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </LiquidButton>
-                    </Link>
-                  </div>
+                  <Link href="/exams">
+                    <Button variant="outline" className="rounded-2xl border border-white/[0.08] h-14 px-10 font-bold text-base gap-2">
+                      Explore Exams <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </div>
 
-                  <div className="flex items-center justify-center gap-6 pt-4 text-xs text-muted-foreground/40">
-                    <span className="flex items-center gap-1.5"><DramaticLock className="w-3.5 h-3.5" /> Secure Payment</span>
-                    <span className="flex items-center gap-1.5"><DramaticShield className="w-3.5 h-3.5" /> Instant Access</span>
-                    <span className="flex items-center gap-1.5"><DramaticCreditCard className="w-3.5 h-3.5" /> One-Time Fee</span>
-                  </div>
+                <div className="flex items-center justify-center gap-6 pt-4 text-xs text-muted-foreground/40">
+                  <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> Secure Payment</span>
+                  <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> Instant Access</span>
+                  <span className="flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5" /> One-Time Fee</span>
                 </div>
               </div>
             </div>
-          </DramaticReveal>
+          </div>
         </Container>
       </section>
-
-      <FloatingCTA />
       <Footer />
     </main>
   )

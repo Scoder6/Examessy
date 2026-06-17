@@ -11,8 +11,6 @@ import { Button } from '@/components/button'
 import { Footer } from '@/components/footer'
 import { BarChart3, TrendingUp, Trophy, BookOpen, ArrowUpRight, Target, Clock, Zap, Calendar, ChevronRight, Activity, Filter, Download, Users } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { DramaticReveal, DramaticCard, HoverSpotlight, GlitchText, MagneticButton, SparkButton, LiquidButton, StaggerGrid, ScrollingText, ExplosiveCounter, PulseBorder } from '@/components/dramatic/dramatic-effects'
-import { DashboardBackground } from '@/components/3d/page-scenes'
 
 interface StudentData {
   id: string
@@ -53,30 +51,48 @@ export default function Dashboard() {
         }
 
         const { data: studentData, error: studentError } = await supabase
-          .from('students')
+          .from('profiles')
           .select('*')
-          .eq('user_id', user.id)
+          .eq('id', user.id)
           .single()
 
         if (studentError) {
           if (studentError.code === 'PGRST116') {
-            router.push('/profile-setup')
+            router.push('/auth/sign-up')
           } else {
-            throw studentError
+            console.error('Student data error:', studentError)
+            setError('Failed to load profile data')
           }
           return
         }
 
-        setStudent(studentData)
+        setStudent({
+          id: studentData.id,
+          name: studentData.student_name,
+          email: studentData.email,
+          exam_type: 'JEE_MAINS', // Default for now, can be added to profiles later
+          target_score: null,
+          created_at: studentData.created_at
+        })
 
         const { data: attempts, error: attemptsError } = await supabase
-          .from('test_attempts')
-          .select('*')
-          .eq('student_id', studentData.id)
-          .order('test_date', { ascending: false })
+          .from('test_results')
+          .select('*, test_series(name, total_marks)')
+          .eq('profile_id', studentData.id)
+          .order('attempted_at', { ascending: false })
 
         if (!attemptsError && attempts) {
-          setTestAttempts(attempts)
+          const formattedAttempts = attempts.map(attempt => ({
+            id: attempt.id,
+            test_name: attempt.test_series?.name || 'Unknown Test',
+            score: Number(attempt.marks_obtained),
+            total_marks: attempt.test_series?.total_marks || 100,
+            accuracy: Number(attempt.percentage),
+            percentile: 0, // Can be calculated later
+            rank: attempt.rank || 0,
+            test_date: attempt.attempted_at
+          }))
+          setTestAttempts(formattedAttempts)
         }
       } catch (err) {
         console.error('Dashboard error:', err)
@@ -93,6 +109,35 @@ export default function Dashboard() {
     const supabase = createClient()
     await supabase.auth.signOut()
     router.push('/')
+  }
+
+  const handleInitiateTest = () => {
+    router.push('/pyq')
+  }
+
+  const handleUpdateGoal = () => {
+    // For now, just show an alert. In future, open a modal
+    alert('Goal update feature coming soon!')
+  }
+
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case 'Schedule Mock Test':
+        router.push('/pyq')
+        break
+      case 'Review Mistakes':
+        router.push('/pyq')
+        break
+      case 'Compare with Peers':
+        alert('Peer comparison feature coming soon!')
+        break
+      default:
+        break
+    }
+  }
+
+  const handleIntelExport = () => {
+    alert('Intel export feature coming soon!')
   }
 
   const avgScore = testAttempts.length > 0
@@ -114,10 +159,10 @@ export default function Dashboard() {
         <Container className="py-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-32 glass rounded-2xl animate-pulse" />
+              <div key={i} className="h-32 bg-white/5 rounded-2xl" />
             ))}
           </div>
-          <div className="h-[400px] glass rounded-2xl animate-pulse" />
+          <div className="h-[400px] bg-white/5 rounded-2xl" />
         </Container>
       </main>
     )
@@ -128,7 +173,7 @@ export default function Dashboard() {
       <main className="min-h-screen bg-background">
         <Header showAuth={false} />
         <Container className="py-20 text-center space-y-6">
-          <Card variant="glass" className="max-w-md mx-auto p-12">
+          <Card className="max-w-md mx-auto p-12 border border-white/5 bg-white/[0.01]">
             <p className="text-destructive font-semibold mb-6">{error || 'Failed to load profile'}</p>
             <Button variant="default" onClick={() => router.push('/')}>Back to Home</Button>
           </Card>
@@ -139,9 +184,11 @@ export default function Dashboard() {
 
   const examName = {
     'JEE_MAINS': 'JEE Mains',
+    'JEE_ADVANCED': 'JEE Advanced',
     'NEET': 'NEET',
     'VIT': 'VIT',
-    'CBT': 'CBT',
+    'BITSAT': 'BITSAT',
+    'MANIPAL': 'Manipal',
   }[student.exam_type] || student.exam_type
 
   const stats = [
@@ -152,27 +199,10 @@ export default function Dashboard() {
   ]
 
   return (
-    <main className="min-h-screen bg-background selection:bg-primary/30 relative overflow-hidden">
-      <DashboardBackground />
-
-      {/* Global Moving Background for Consistency */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-grid-white opacity-[0.02] animate-grid-move" />
-        <div className="absolute inset-0 bg-dot-pattern opacity-[0.05]" />
-        
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[150px] animate-orb" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 rounded-full blur-[150px] animate-orb" style={{ animationDelay: '-10s' }} />
-      </div>
-
+    <main className="min-h-screen bg-background selection:bg-primary/30">
       <Header showAuth={true} isAuthenticated={true} onSignOut={handleLogout} />
 
       <Container size="2xl" className="py-32">
-
-        <ScrollingText
-          texts={['JEE MAINS', 'NEET', 'VITEEE', 'BITSSAT', 'COMEDK', 'MHT-CET', 'KCET', 'JEE ADVANCED']}
-          speed={45}
-          className="opacity-30 mb-16"
-        />
 
         {/* Dashboard Header - Massive Style */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
@@ -182,34 +212,33 @@ export default function Dashboard() {
             className="space-y-6"
           >
             <div className="flex items-center gap-4">
-              <Badge variant="glass" className="px-6 py-2 rounded-full border-primary/20 text-primary font-black tracking-widest uppercase italic">
+              <Badge variant="secondary" className="px-4 py-2 rounded-full text-sm font-semibold">
                 {examName} Sector
               </Badge>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                <span className="text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-50">Live Sync</span>
+                <span className="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase opacity-50">Live Sync</span>
               </div>
             </div>
             
-            <h1 className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase italic leading-[0.85]">
+            <h1 className="text-5xl md:text-7xl font-display font-semibold tracking-tighter uppercase leading-tight">
               Welcome back, <br />
               <span className="text-gradient">
-                <GlitchText text={student.name.split(' ')[0]} />
+                {student.name.split(' ')[0]}
               </span>
             </h1>
             
             <div className="flex items-center gap-6 pt-2">
               <div className="flex flex-col">
-                <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase opacity-50">Status</span>
-                <span className="text-sm font-black font-mono">ELITE ASPIRANT</span>
+                <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase opacity-50">Status</span>
+                <span className="text-sm font-semibold font-mono">ELITE ASPIRANT</span>
               </div>
               <div className="w-px h-10 bg-white/10" />
               <div className="flex flex-col">
-                <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase opacity-50">Member Since</span>
-                <span className="text-sm font-black font-mono">{new Date(student.created_at).getFullYear()}</span>
+                <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase opacity-50">Member Since</span>
+                <span className="text-sm font-semibold font-mono">{new Date(student.created_at).getFullYear()}</span>
               </div>
             </div>
           </motion.div>
@@ -219,58 +248,50 @@ export default function Dashboard() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-wrap gap-4"
           >
-            <MagneticButton>
-              <SparkButton>
-                <LiquidButton
-                  className="rounded-2xl border-2 border-white/20 font-black tracking-widest uppercase h-20 px-8 bg-white/5 text-foreground"
-                >
-                  <Download className="w-5 h-5 mr-3 inline" /> Intel Export
-                </LiquidButton>
-              </SparkButton>
-            </MagneticButton>
-            <MagneticButton>
-              <SparkButton>
-                <LiquidButton
-                  className="rounded-2xl font-black tracking-widest uppercase h-20 px-12 shadow-2xl shadow-primary/30 bg-primary text-primary-foreground"
-                >
-                  INITIATE TEST <ArrowUpRight className="w-6 h-6 ml-3 inline" />
-                </LiquidButton>
-              </SparkButton>
-            </MagneticButton>
+            <Button onClick={handleIntelExport} variant="outline" className="rounded-2xl border border-white/20 font-semibold tracking-wide uppercase h-14 px-8 bg-white/5 text-foreground">
+              <Download className="w-5 h-5 mr-3 inline" /> Intel Export
+            </Button>
+            <Button onClick={handleInitiateTest} className="rounded-2xl font-semibold tracking-wide uppercase h-14 px-12 shadow-lg shadow-primary/30 bg-primary text-primary-foreground">
+              INITIATE TEST <ArrowUpRight className="w-6 h-6 ml-3 inline" />
+            </Button>
           </motion.div>
         </div>
 
         {/* Stats Grid */}
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {stats.map((stat, i) => (
-            <DramaticCard key={stat.label} glowColor="rgba(var(--primary-rgb),0.4)">
-              <Card variant="glass" className="group hover:border-primary/30 transition-all duration-500">
-                <HoverSpotlight>
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className={`p-2 rounded-xl glass ${stat.color} bg-white/5`}>
-                        <stat.icon className="w-5 h-5" />
-                      </div>
-                      <span className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-widest">
-                        Live
-                      </span>
+            <motion.div 
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <Card className="border border-white/5 bg-white/[0.01] group hover:border-primary/30 transition-all duration-500">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`p-2 rounded-xl bg-white/5 ${stat.color}`}>
+                      <stat.icon className="w-5 h-5" />
                     </div>
-                    <div className="space-y-1">
-                      <h3 className="text-sm font-medium text-muted-foreground font-modern">{stat.label}</h3>
-                      <p className="text-3xl font-display font-bold tracking-tight">
-                        {stat.numericValue > 0 ? (
-                          <ExplosiveCounter from={0} to={stat.numericValue} suffix={stat.suffix} duration={1.8} />
-                        ) : (
-                          <span>N/A</span>
-                        )}
-                      </p>
-                    </div>
-                  </CardContent>
-                </HoverSpotlight>
+                    <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wide">
+                      Live
+                    </span>
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-medium text-muted-foreground">{stat.label}</h3>
+                    <p className="text-3xl font-display font-semibold tracking-tight">
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        {stat.value}{stat.suffix}
+                      </motion.span>
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
-            </DramaticCard>
+            </motion.div>
           ))}
-        </StaggerGrid>
+        </div>
 
         {/* Main Content Area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -281,13 +302,13 @@ export default function Dashboard() {
             transition={{ delay: 0.4 }}
             className="lg:col-span-2"
           >
-            <Card variant="glass" className="h-full overflow-hidden border-white/5">
+            <Card className="h-full overflow-hidden border border-white/5 bg-white/[0.01]">
               <CardHeader className="border-b border-white/5 bg-white/[0.02] p-6 flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-display">Recent Performance</CardTitle>
                   <CardDescription>A detailed breakdown of your latest test attempts</CardDescription>
                 </div>
-                <Button variant="ghost" size="sm" className="rounded-lg">
+                <Button variant="ghost" size="sm" className="rounded-lg" onClick={() => alert('Filter feature coming soon!')}>
                   <Filter className="w-4 h-4 mr-2" /> Filter
                 </Button>
               </CardHeader>
@@ -317,7 +338,7 @@ export default function Dashboard() {
                             >
                               <td className="px-6 py-4">
                                 <div className="flex items-center gap-3">
-                                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                                  <div className="w-2 h-2 rounded-full bg-primary" />
                                   <span className="font-semibold text-foreground">{test.test_name}</span>
                                 </div>
                               </td>
@@ -366,41 +387,35 @@ export default function Dashboard() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <DramaticCard glowColor="rgba(var(--primary-rgb),0.5)">
-                <PulseBorder>
-                  <Card variant="glass" className="p-8 space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-primary">
-                        <Target className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h3 className="font-display font-bold text-xl">Target Score</h3>
-                        <p className="text-sm text-muted-foreground">Your current goal for {examName}</p>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-end">
-                        <span className="text-4xl font-display font-bold">
-                          {student.target_score ? (
-                            <ExplosiveCounter from={0} to={student.target_score} duration={2} />
-                          ) : 'N/A'}
-                        </span>
-                        <span className="text-sm font-mono text-primary">+15% vs last week</span>
-                      </div>
-                      <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
-                        <motion.div 
-                          initial={{ width: 0 }}
-                          animate={{ width: '65%' }}
-                          className="h-full bg-gradient-to-r from-primary via-secondary to-accent"
-                        />
-                      </div>
-                    </div>
-                    <LiquidButton className="w-full rounded-xl border border-white/10 bg-white/5 h-12 font-semibold text-sm">
-                      Update Goal
-                    </LiquidButton>
-                  </Card>
-                </PulseBorder>
-              </DramaticCard>
+              <Card className="p-8 space-y-6 border border-white/5 bg-white/[0.01]">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-semibold text-xl">Target Score</h3>
+                    <p className="text-sm text-muted-foreground">Your current goal for {examName}</p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-end">
+                    <span className="text-4xl font-display font-semibold">
+                      {student.target_score || 'N/A'}
+                    </span>
+                    <span className="text-sm font-mono text-primary">+15% vs last week</span>
+                  </div>
+                  <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: '65%' }}
+                      className="h-full bg-gradient-to-r from-primary via-secondary to-accent"
+                    />
+                  </div>
+                </div>
+                <Button onClick={handleUpdateGoal} className="w-full rounded-xl border border-white/10 bg-white/5 h-12 font-semibold text-sm">
+                  Update Goal
+                </Button>
+              </Card>
             </motion.div>
 
             <motion.div
@@ -408,8 +423,8 @@ export default function Dashboard() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <Card variant="glass" className="p-8 border-white/5 bg-white/[0.02]">
-                <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-2">
+              <Card className="p-8 border border-white/5 bg-white/[0.01]">
+                <h3 className="font-display font-semibold text-xl mb-6 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-yellow-500" /> Quick Actions
                 </h3>
                 <div className="space-y-3">
@@ -418,16 +433,18 @@ export default function Dashboard() {
                     { label: 'Review Mistakes', icon: Clock },
                     { label: 'Compare with Peers', icon: Users },
                   ].map((action, i) => (
-                    <LiquidButton
+                    <Button
                       key={i}
-                      className="w-full flex items-center justify-between p-4 rounded-xl glass hover:bg-white/5 transition-all group text-left"
+                      variant="ghost"
+                      onClick={() => handleQuickAction(action.label)}
+                      className="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group text-left"
                     >
                       <div className="flex items-center gap-3">
                         <action.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                         <span className="text-sm font-medium">{action.label}</span>
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-1" />
-                    </LiquidButton>
+                    </Button>
                   ))}
                 </div>
               </Card>
