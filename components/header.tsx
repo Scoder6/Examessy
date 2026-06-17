@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Button } from './button'
 import { Container } from './container'
 import { ThemeToggle } from './theme-toggle'
@@ -62,6 +62,7 @@ export function Header({
   isAuthenticated = false,
 }: HeaderProps) {
   const { navigateTo } = usePageTransition()
+  const router = useRouter()
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
@@ -223,24 +224,22 @@ export function Header({
                       </Button>
                     ) : (
                       <>
-                        <Link href="/auth/login" onClick={e => { e.preventDefault(); navigateTo('/auth/login') }}>
-                          <Button variant="ghost" size="sm" className="font-bold text-xs tracking-wider">
-                            LOG IN
-                          </Button>
-                        </Link>
-                        <Link href="/auth/sign-up" onClick={e => { e.preventDefault(); navigateTo('/auth/sign-up') }}>
-                          <MagneticButton strength={0.25}>
-                            <SparkButton>
-                              <LiquidButton
-                                className="relative px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs tracking-widest shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors overflow-hidden gradient-border"
-                              >
-                                <span className="relative z-10 flex items-center gap-2">
-                                  ENLIST <ArrowRight className="w-3.5 h-3.5" />
-                                </span>
-                              </LiquidButton>
-                            </SparkButton>
-                          </MagneticButton>
-                        </Link>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="font-bold text-xs tracking-wider"
+                          onClick={() => router.push('/auth/login')}
+                        >
+                          LOG IN
+                        </Button>
+                        <Button 
+                          className="px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs tracking-widest shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors"
+                          onClick={() => router.push('/auth/sign-up')}
+                        >
+                          <span className="flex items-center gap-2">
+                            ENLIST <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                        </Button>
                       </>
                     )}
                   </div>
@@ -314,16 +313,22 @@ export function Header({
                       </Button>
                     ) : (
                       <>
-                        <Link href="/auth/sign-up" className="w-full" onClick={() => setIsOpen(false)}>
-                          <Button variant="default" size="xl" className="h-16 text-lg font-black rounded-2xl w-full shadow-2xl shadow-primary/20">
-                            JOIN NOW
-                          </Button>
-                        </Link>
-                        <Link href="/auth/login" className="w-full" onClick={() => setIsOpen(false)}>
-                          <Button variant="glass" size="xl" className="h-16 text-lg font-black rounded-2xl w-full">
-                            LOG IN
-                          </Button>
-                        </Link>
+                        <Button 
+                          variant="default" 
+                          size="xl" 
+                          className="h-16 text-lg font-black rounded-2xl w-full shadow-2xl shadow-primary/20"
+                          onClick={() => { setIsOpen(false); router.push('/auth/sign-up') }}
+                        >
+                          JOIN NOW
+                        </Button>
+                        <Button 
+                          variant="glass" 
+                          size="xl" 
+                          className="h-16 text-lg font-black rounded-2xl w-full"
+                          onClick={() => { setIsOpen(false); router.push('/auth/login') }}
+                        >
+                          LOG IN
+                        </Button>
                       </>
                     )}
                   </div>
