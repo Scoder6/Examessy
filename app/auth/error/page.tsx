@@ -1,13 +1,18 @@
 'use client'
 
+import { use } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/card'
 import { Button } from '@/components/button'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { AlertCircle, RefreshCw, Home } from 'lucide-react'
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string; error_code?: string; error_description?: string }>
+}) {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const params = use(searchParams)
 
   const getErrorMessage = (errorCode?: string | null, errorDesc?: string | null) => {
     if (errorCode === 'otp_expired' || errorDesc?.includes('expired')) {
@@ -22,8 +27,8 @@ export default function Page() {
     return 'An unspecified error occurred during authentication.'
   }
 
-  const errorCode = searchParams.get('error_code')
-  const errorDesc = searchParams.get('error_description')
+  const errorCode = params.error_code
+  const errorDesc = params.error_description
   const errorMessage = getErrorMessage(errorCode, errorDesc)
 
   return (
