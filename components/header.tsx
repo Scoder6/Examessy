@@ -232,7 +232,6 @@ export function Header({
                           <MagneticButton strength={0.25}>
                             <SparkButton>
                               <LiquidButton
-                                onClick={() => {}}
                                 className="relative px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs tracking-widest shadow-[0_4px_14px_rgba(var(--primary-rgb),0.35)] hover:bg-primary/90 transition-colors overflow-hidden gradient-border"
                               >
                                 <span className="relative z-10 flex items-center gap-2">
