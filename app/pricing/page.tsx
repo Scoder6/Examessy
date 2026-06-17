@@ -38,7 +38,7 @@ export default function Pricing() {
   const plans = [
     {
       id: 'JEE_MAINS',
-      name: 'JEE Mains 2026',
+      name: 'JEE Mains 2027',
       originalPrice: '₹2499',
       price: '₹1999',
       description: '15 Full-Length Tests',
@@ -59,7 +59,7 @@ export default function Pricing() {
     },
     {
       id: 'JEE_ADVANCED',
-      name: 'JEE Advanced 2026',
+      name: 'JEE Advanced 2027',
       originalPrice: '₹3499',
       price: '₹2499',
       description: '12 Full-Length Tests',
@@ -80,7 +80,7 @@ export default function Pricing() {
     },
     {
       id: 'VITEEE',
-      name: 'VITEEE 2026',
+      name: 'VITEEE 2027',
       originalPrice: '₹1999',
       price: '₹999',
       description: '10 Full-Length Tests',
@@ -101,7 +101,7 @@ export default function Pricing() {
     },
     {
       id: 'BITSSAT',
-      name: 'BITSAT 2026',
+      name: 'BITSAT 2027',
       originalPrice: '₹2499',
       price: '₹1999',
       description: '12 Full-Length Tests',
@@ -122,7 +122,7 @@ export default function Pricing() {
     },
     {
       id: 'MANIPAL',
-      name: 'Manipal 2026',
+      name: 'Manipal 2027',
       originalPrice: '₹1999',
       price: '₹999',
       description: '10 Full-Length Tests',
@@ -143,7 +143,7 @@ export default function Pricing() {
     },
     {
       id: 'NEET',
-      name: 'NEET-UG 2026',
+      name: 'NEET-UG 2027',
       originalPrice: '₹7999',
       price: '₹4999',
       description: 'Unlimited Tests',
@@ -186,7 +186,7 @@ export default function Pricing() {
           {/* Hero */}
           <div className="flex flex-col items-center text-center space-y-8 mb-16">
             <Badge variant="secondary" className="px-4 py-2 rounded-full text-sm font-semibold">
-              Test Series 2026
+              Test Series 2027
             </Badge>
             <h1 className="text-5xl md:text-7xl font-display font-semibold tracking-tighter leading-tight">
               Prepare Smarter,<br />
